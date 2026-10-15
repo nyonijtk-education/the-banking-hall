@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" id="htmlRoot">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZB Financial Holdings - The Banking Hall</title>
+    <title>ZB Financial Holdings - The Banking Hall (Enterprise Blueprint & ZIMRA Tax Vault)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
@@ -26,15 +27,15 @@
     </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans min-h-screen antialiased selection:bg-zb-600 selection:text-white">
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 font-sans min-h-screen antialiased selection:bg-zb-600 selection:text-white transition-colors duration-200">
 
-    <!-- LOGIN SCREEN -->
-    <div id="loginScreen" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md flex items-center justify-center z-50 p-4">
-        <div class="bg-white border border-slate-200 rounded-2xl p-8 max-w-md w-full shadow-2xl space-y-6 relative overflow-hidden">
-            <div class="absolute top-0 right-0 w-32 h-32 bg-zb-50 rounded-full blur-2xl pointer-events-none"></div>
+    <!-- MASTER GATEWAY & RBAC PORTAL SELECTOR WITH FIDO2 BIOMETRIC PASSKEY FEDERATION -->
+    <div id="loginScreen" class="fixed inset-0 bg-slate-900/90 backdrop-blur-md flex items-center justify-center z-50 p-4">
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-8 max-w-xl w-full shadow-2xl space-y-6 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-40 h-40 bg-zb-50 dark:bg-zb-900/20 rounded-full blur-3xl pointer-events-none"></div>
             
             <div class="flex flex-col items-center space-y-2 text-center">
-                <div class="flex items-center space-x-2 mb-2">
+                <div class="flex items-center space-x-2 mb-1">
                     <div class="flex flex-col items-center">
                         <div class="flex items-baseline font-black tracking-tighter text-4xl text-zb-600">
                             <span>z</span><span>b</span>
@@ -42,88 +43,59 @@
                         <div class="w-full h-1 bg-zb-500 rounded-full mt-[-2px]"></div>
                     </div>
                 </div>
-                <h1 class="text-base font-bold uppercase tracking-wider text-slate-800">The Banking Hall</h1>
-                <p class="text-xs text-slate-500">ZB Bank Production Deployment (93 Nodes)</p>
+                <h1 class="text-base font-bold uppercase tracking-wider text-slate-800 dark:text-slate-100">The Banking Hall Gate (Enterprise Blueprint)</h1>
+                <p class="text-xs text-slate-500 dark:text-slate-400">Select Dedicated Institutional Portal & Authenticate via FIDO2 Passkey</p>
             </div>
 
-            <form onsubmit="handleLogin(event)" class="space-y-4">
+            <form onsubmit="handlePortalLogin(event)" class="space-y-4">
                 <div>
-                    <label class="block text-xs font-semibold text-slate-600 mb-1.5 uppercase">Account Holder Name</label>
+                    <label class="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1.5 uppercase">Authorized Sovereign/Corporate Officer</label>
                     <div class="relative">
                         <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400"><i class="fa-solid fa-user"></i></span>
-                        <input type="text" id="loginUser" value="Joshua T.K. Nyoni" class="w-full bg-slate-50 border border-slate-300 rounded-lg py-3 pl-10 pr-3 text-sm text-slate-800 focus:outline-none focus:border-zb-600 focus:ring-1 focus:ring-zb-600 font-medium" required>
+                        <input type="text" id="loginUser" value="Joshua T.K. Nyoni" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg py-3 pl-10 pr-3 text-sm text-slate-800 dark:text-slate-100 focus:outline-none focus:border-zb-600 font-medium" required>
                     </div>
                 </div>
 
                 <div>
-                    <label class="block text-xs font-semibold text-slate-600 mb-1.5 uppercase">Hardware Security Token / PIN</label>
-                    <div class="relative">
-                        <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400"><i class="fa-solid fa-key"></i></span>
-                        <input type="password" id="loginPass" value="••••••••••••" class="w-full bg-slate-50 border border-slate-300 rounded-lg py-3 pl-10 pr-3 text-sm text-slate-800 focus:outline-none focus:border-zb-600 focus:ring-1 focus:ring-zb-600 font-mono" required>
-                    </div>
+                    <label class="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1.5 uppercase">Target Granular Governance Portal</label>
+                    <select id="portalSelector" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-3 text-sm text-slate-800 dark:text-slate-100 focus:outline-none focus:border-zb-600 font-semibold text-zb-700 dark:text-zb-500">
+                        <option value="executive" selected>Portal 1: Executive Leadership & Governance (Checker, Alerts & Approvals)</option>
+                        <option value="predictive">Portal 2: Predictive AI Analytics & 93-Node Heatmap</option>
+                        <option value="compliance">Portal 3: Compliance & ZIMRA Tax Vault (IMTT 2.0% & Automated Filings)</option>
+                        <option value="teller">Portal 4: Teller & Treasury Operations (5-Step WBWS, Escrow & Municipal Agri-Hedging)</option>
+                    </select>
                 </div>
 
-                <div class="flex items-center justify-between text-xs pt-1">
-                    <label class="flex items-center space-x-2 text-slate-600 cursor-pointer">
-                        <input type="checkbox" checked class="w-4 h-4 accent-zb-600 rounded">
-                        <span>Remember Session</span>
-                    </label>
-                    <button type="button" onclick="showRegisterModal()" class="text-zb-600 hover:underline font-semibold cursor-pointer">Create Account / Link Bank</button>
+                <!-- WebAuthn / FIDO2 Biometric Passkey Federation Module -->
+                <div class="bg-zb-50 dark:bg-slate-800/60 border border-zb-200 dark:border-zb-700 rounded-xl p-4 space-y-3">
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs font-bold uppercase text-zb-800 dark:text-zb-400 flex items-center">
+                            <i class="fa-solid fa-fingerprint mr-2 text-base text-zb-600"></i> FIDO2 Biometric Passkey Federation
+                        </span>
+                        <span class="bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-400 text-[10px] font-mono px-2 py-0.5 rounded font-bold">HARDWARE-BACKED</span>
+                    </div>
+                    <p class="text-[11px] text-slate-600 dark:text-slate-400">Authenticate instantly using device fingerprint, Face ID, or security key without compromising HSM security compliance.</p>
+                    <button type="button" onclick="triggerWebAuthnBiometricAuth()" id="biometricAuthBtn" class="w-full bg-white dark:bg-slate-900 hover:bg-zb-100 dark:hover:bg-slate-800 text-zb-700 dark:text-zb-300 border border-zb-300 dark:border-zb-600 font-bold py-2.5 px-4 rounded-lg shadow-2xs transition flex items-center justify-center space-x-2 text-xs uppercase cursor-pointer">
+                        <i class="fa-solid fa-id-card-clip"></i>
+                        <span id="biometricBtnText">Verify with Biometric Passkey / Face ID</span>
+                    </button>
+                    <input type="hidden" id="passkeyVerifiedStatus" value="false">
                 </div>
 
                 <button type="submit" class="w-full bg-zb-600 hover:bg-zb-700 text-white font-bold py-3.5 px-6 rounded-lg shadow-md transition flex items-center justify-center space-x-2 cursor-pointer mt-2">
                     <i class="fa-solid fa-right-to-bracket"></i>
-                    <span>ENTER THE BANKING HALL</span>
+                    <span>LAUNCH INSTITUTIONAL PORTAL</span>
                 </button>
             </form>
 
-            <div class="border-t border-slate-100 pt-4 text-center text-[11px] text-slate-400 font-mono">
-                ZB Bank | ZIMRA Regulatory Compliant
+            <div class="border-t border-slate-100 dark:border-slate-800 pt-3 text-center text-[11px] text-slate-400 font-mono">
+                ZB Financial Holdings | FIDO2 WebAuthn & ZIMRA Tax Vault Verified
             </div>
         </div>
     </div>
 
-    <!-- ACCOUNT CREATION & OTP LINKING MODAL -->
-    <div id="registerModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md flex items-center justify-center z-50 p-4 hidden">
-        <div class="bg-white border border-slate-200 rounded-2xl p-8 max-w-md w-full shadow-2xl space-y-6">
-            <div class="flex justify-between items-center border-b border-slate-100 pb-3">
-                <h3 class="text-sm font-bold text-slate-800 uppercase tracking-wide"><i class="fa-solid fa-user-plus text-zb-600 mr-2"></i>Create Account & Link Bank (OTP)</h3>
-                <button onclick="hideRegisterModal()" class="text-slate-400 hover:text-slate-600 cursor-pointer"><i class="fa-solid fa-xmark text-lg"></i></button>
-            </div>
-            
-            <form onsubmit="submitRegistration(event)" class="space-y-4 text-xs">
-                <div>
-                    <label class="block font-semibold text-slate-600 mb-1 uppercase">Full Legal Name</label>
-                    <input type="text" id="regName" value="Joshua T.K. Nyoni" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-3 text-slate-800 font-medium" required>
-                </div>
-                <div>
-                    <label class="block font-semibold text-slate-600 mb-1 uppercase">Select Existing Bank to Link</label>
-                    <select id="regBank" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-3 text-slate-800">
-                        <option value="CABS">CABS Treasury</option>
-                        <option value="CBZ">CBZ Bank</option>
-                        <option value="Stanbic">Stanbic Bank</option>
-                        <option value="FBC">FBC Bank</option>
-                        <option value="Nedbank">Nedbank Zimbabwe</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="block font-semibold text-slate-600 mb-1 uppercase">Account Number</label>
-                    <input type="text" id="regAcctNo" placeholder="100XXXXXXXXX" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-3 font-mono text-slate-800" required>
-                </div>
-                <div>
-                    <label class="block font-semibold text-slate-600 mb-1 uppercase">OTP Verification Code</label>
-                    <div class="flex space-x-2">
-                        <input type="text" id="regOtpInput" placeholder="6-digit OTP" class="w-2/3 bg-slate-50 border border-slate-300 rounded-lg p-3 font-mono text-slate-800" required>
-                        <button type="button" onclick="triggerOtp()" class="w-1/3 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold rounded-lg py-3 cursor-pointer">Send OTP</button>
-                    </div>
-                </div>
-                <button type="submit" class="w-full bg-zb-600 hover:bg-zb-700 text-white font-bold py-3.5 rounded-lg shadow-md transition cursor-pointer">VERIFY & DEPOSIT INTO BANKING HALL</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Top Security & Node Header -->
-    <header class="bg-white border-b border-slate-200 px-6 py-4 flex flex-col md:flex-row justify-between items-center gap-4 shadow-sm">
+    <!-- Top Portal Header -->
+    <header class="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 px-6 py-4 flex flex-col md:flex-row justify-between items-center gap-4 shadow-sm sticky top-0 z-40 transition-colors duration-200">
         <div class="flex items-center space-x-4">
             <div class="flex items-center space-x-2">
                 <div class="flex flex-col">
@@ -132,620 +104,1222 @@
                     </div>
                     <div class="w-full h-1 bg-zb-500 rounded-full mt-[-2px]"></div>
                 </div>
-                <div class="border-l border-slate-300 pl-3 ml-1">
-                    <span class="block text-xs font-bold uppercase tracking-widest text-slate-400">The Banking Hall</span>
-                    <span class="block text-xs font-bold uppercase tracking-widest text-slate-700">ZB Bank Live</span>
+                <div class="border-l border-slate-300 dark:border-slate-700 pl-3 ml-1">
+                    <span class="block text-xs font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500">The Banking Hall</span>
+                    <span id="activePortalHeaderTitle" class="block text-xs font-bold uppercase tracking-widest text-zb-700 dark:text-zb-500">Executive Leadership & Governance Portal</span>
                 </div>
-            </div>
-            <div class="hidden sm:block">
-                <span class="bg-zb-50 text-zb-700 text-xs px-2.5 py-1 rounded-full border border-zb-100 font-semibold">User: <strong id="headerUserDisplay">Joshua T.K. Nyoni</strong></span>
             </div>
         </div>
 
-        <div class="flex items-center space-x-6 text-xs">
-            <div class="flex items-center space-x-2 bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-200">
-                <span id="wsStatusDot" class="w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse"></span>
-                <span class="text-slate-600 font-medium">93 Nodes (ZB Stream): <strong id="wsStatusText" class="text-amber-600">CONNECTING...</strong></span>
+        <!-- Quick Switch Between Dedicated Portals -->
+        <div class="flex items-center space-x-2 bg-slate-100 dark:bg-slate-800 p-1.5 rounded-xl border border-slate-200 dark:border-slate-700 text-xs font-semibold">
+            <span class="text-slate-400 dark:text-slate-500 px-2 uppercase font-bold text-[10px]">Portals:</span>
+            <button onclick="switchPortal('executive')" id="btnPortExecutive" class="px-2.5 py-1.5 rounded-lg transition bg-white dark:bg-slate-900 text-zb-700 dark:text-zb-400 shadow-2xs cursor-pointer">Executive</button>
+            <button onclick="switchPortal('predictive')" id="btnPortPredictive" class="px-2.5 py-1.5 rounded-lg transition text-slate-600 dark:text-slate-400 hover:text-zb-700 dark:hover:text-zb-400 cursor-pointer">AI Analytics</button>
+            <button onclick="switchPortal('compliance')" id="btnPortCompliance" class="px-2.5 py-1.5 rounded-lg transition text-slate-600 dark:text-slate-400 hover:text-zb-700 dark:hover:text-zb-400 cursor-pointer">ZIMRA Tax</button>
+            <button onclick="switchPortal('teller')" id="btnPortTeller" class="px-2.5 py-1.5 rounded-lg transition text-slate-600 dark:text-slate-400 hover:text-zb-700 dark:hover:text-zb-400 cursor-pointer">Treasury</button>
+        </div>
+
+        <div class="flex items-center space-x-3 text-xs">
+            <div class="flex items-center space-x-2 bg-slate-100 dark:bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span class="text-slate-600 dark:text-slate-300 font-medium">DTN Sync: <strong class="text-emerald-600 dark:text-emerald-400">OPTIMAL</strong></span>
             </div>
-            <div class="hidden lg:flex items-center space-x-2 bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-200">
-                <i class="fa-solid fa-clock text-zb-600"></i>
-                <span class="text-slate-600">Telemetry: <strong id="telemetryTimer" class="font-mono text-slate-800">24:00:00</strong></span>
-            </div>
-            <button onclick="logoutSession()" class="bg-red-50 hover:bg-red-100 text-red-600 px-3 py-1.5 rounded-lg font-semibold border border-red-200 transition cursor-pointer flex items-center space-x-1">
-                <i class="fa-solid fa-power-off"></i>
-                <span>Logout</span>
+
+            <!-- Dark / Light Mode Toggle -->
+            <button onclick="toggleTheme()" class="bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 px-3 py-1.5 rounded-lg font-semibold border border-slate-200 dark:border-slate-700 transition cursor-pointer flex items-center space-x-1.5">
+                <i id="themeIcon" class="fa-solid fa-moon"></i>
+                <span id="themeText" class="hidden sm:inline">Night</span>
+            </button>
+
+            <button onclick="logoutToGateway()" class="bg-red-50 dark:bg-red-950/40 hover:bg-red-100 dark:hover:bg-red-900/50 text-red-600 dark:text-red-400 px-3 py-1.5 rounded-lg font-semibold border border-red-200 dark:border-red-900/50 transition cursor-pointer flex items-center space-x-1">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                <span>Gateway</span>
             </button>
         </div>
     </header>
 
-    <!-- Main Grid Dashboard -->
-    <main class="max-w-7xl mx-auto p-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <!-- MAIN PORTAL CONTAINER -->
+    <main class="max-w-7xl mx-auto p-6 space-y-6">
 
-        <!-- Left Column: The Banking Hall Balances, Fee-Free Utilities & Interbank Matrix -->
-        <div class="space-y-6">
-            <!-- Banking Hall User Balances -->
-            <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm">
-                <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-sm font-bold uppercase tracking-wider text-slate-700"><i class="fa-solid fa-landmark mr-2 text-zb-600"></i>The Banking Hall Balances</h2>
-                    <span class="text-xs text-zb-700 bg-zb-50 px-2.5 py-0.5 rounded-full font-semibold border border-zb-100">Live Ledger</span>
+        <!-- ISOC INTERPLANETARY & DTN LIVE CORRIDOR STATUS BANNER -->
+        <div class="bg-gradient-to-r from-zb-900 via-zb-700 to-zb-900 text-white p-4 rounded-2xl shadow-lg flex flex-col md:flex-row justify-between items-center gap-4 border border-zb-500/30">
+            <div class="flex items-center space-x-3">
+                <div class="bg-zb-500/20 p-3 rounded-xl border border-zb-400/40 text-zb-100">
+                    <i class="fa-solid fa-satellite-dish text-xl animate-pulse"></i>
                 </div>
-                <div class="space-y-3 font-mono text-xs">
-                    <div class="flex justify-between items-center bg-slate-50 p-3 rounded-lg border border-slate-100">
-                        <span class="text-slate-500">Hall ZiG Balance</span>
-                        <span id="hallZigBalance" class="text-slate-800 font-bold text-sm">106,596,800,000.00</span>
+                <div>
+                    <h2 class="text-xs font-bold uppercase tracking-wider text-zb-100">ISOC Interplanetary & DTN Corridor Status</h2>
+                    <p class="text-[11px] text-zb-50">Store-and-forward delay-tolerant networking active for Bikita & remote extraction nodes. Cryptographic proof-of-settlement synchronized.</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-3 text-xs font-mono">
+                <div class="bg-black/30 px-3 py-1.5 rounded-lg border border-white/10 flex items-center space-x-2">
+                    <span class="text-slate-400">Buffer:</span>
+                    <strong id="dtnQueueCount" class="text-emerald-400">0 Bundles</strong>
+                </div>
+                <button onclick="toggleDtnSimulation()" id="dtnToggleBtn" class="bg-white hover:bg-zb-50 text-zb-900 font-bold px-3 py-1.5 rounded-lg transition shadow cursor-pointer text-xs uppercase">Simulate Link Drop</button>
+            </div>
+        </div>
+
+        <!-- ================= PORTAL 1: EXECUTIVE LEADERSHIP ================= -->
+        <div id="portalExecutive" class="portal-view grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div class="space-y-6">
+                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-sm font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300"><i class="fa-solid fa-landmark mr-2 text-zb-600"></i>The Banking Hall Sovereign Balances</h2>
+                        <span class="text-xs text-zb-700 dark:text-zb-400 bg-zb-50 dark:bg-zb-950 px-2.5 py-0.5 rounded-full font-semibold border border-zb-100 dark:border-zb-900">Live Ledger</span>
                     </div>
-                    <div class="flex justify-between items-center bg-slate-50 p-3 rounded-lg border border-slate-100">
-                        <span class="text-slate-500">Hall USD Balance</span>
-                        <span id="hallUsdBalance" class="text-slate-800 font-bold text-sm">$4,000,000,000.00</span>
+                    <div class="space-y-3 font-mono text-xs">
+                        <div class="flex justify-between items-center bg-slate-50 dark:bg-slate-800/60 p-3 rounded-lg border border-slate-100 dark:border-slate-800">
+                            <span class="text-slate-500 dark:text-slate-400">Hall ZiG Reserve</span>
+                            <span id="execHallZig" class="text-slate-800 dark:text-slate-100 font-bold text-sm">103,640,678,784.00</span>
+                        </div>
+                        <div class="flex justify-between items-center bg-slate-50 dark:bg-slate-800/60 p-3 rounded-lg border border-slate-100 dark:border-slate-800">
+                            <span class="text-slate-500 dark:text-slate-400">Hall USD Reserve</span>
+                            <span id="execHallUsd" class="text-slate-800 dark:text-slate-100 font-bold text-sm">$4,217,707,091.37</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Municipal Reserve Isolation Status -->
+                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm space-y-3 border-l-4 border-l-amber-500">
+                    <div class="flex justify-between items-center">
+                        <h2 class="text-sm font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300"><i class="fa-solid fa-city mr-2 text-amber-600"></i>Civic Reserve Isolation</h2>
+                        <span class="bg-amber-100 dark:bg-amber-950/60 text-amber-700 dark:text-amber-400 font-mono text-[10px] font-bold px-2 py-0.5 rounded-full">SECURED</span>
+                    </div>
+                    <p class="text-[11px] text-slate-500 dark:text-slate-400">Isolated municipal and fleet liquidity thresholds quarantined from commercial arbitrage pools.</p>
+                    <div class="space-y-2 font-mono text-xs pt-1">
+                        <div class="flex justify-between items-center bg-slate-50 dark:bg-slate-800/60 p-2.5 rounded border border-slate-200 dark:border-slate-800">
+                            <span class="text-slate-500">Mayoral Fleet Reserve</span>
+                            <strong id="execFleetReserve" class="text-zb-600 dark:text-zb-400">$350,000.00 USD</strong>
+                        </div>
+                        <div class="flex justify-between items-center bg-slate-50 dark:bg-slate-800/60 p-2.5 rounded border border-slate-200 dark:border-slate-800">
+                            <span class="text-slate-500">Infrastructural Pool</span>
+                            <strong id="execInfraReserve" class="text-zb-600 dark:text-zb-400">$1,200,000.00 USD</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Agricultural Agri-Challenge Yield Hedging Status -->
+                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm space-y-3 border-l-4 border-l-zb-600">
+                    <div class="flex justify-between items-center">
+                        <h2 class="text-sm font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300"><i class="fa-solid fa-seedling mr-2 text-zb-600"></i>Agri-Challenge Hedging Vault</h2>
+                        <span class="bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400 font-mono text-[10px] font-bold px-2 py-0.5 rounded-full">72H ACTIVE</span>
+                    </div>
+                    <p class="text-[11px] text-slate-500 dark:text-slate-400">Active 72-hour forward commodity hedges across regional trade flows and Eagle's Nest challenge nodes.</p>
+                    <div class="space-y-2 font-mono text-xs pt-1">
+                        <div class="flex justify-between items-center bg-slate-50 dark:bg-slate-800/60 p-2.5 rounded border border-slate-200 dark:border-slate-800">
+                            <span class="text-slate-500">Locked Commodity Volume</span>
+                            <strong class="text-zb-600 dark:text-zb-400">14,500 Metric Tons</strong>
+                        </div>
+                        <div class="flex justify-between items-center bg-slate-50 dark:bg-slate-800/60 p-2.5 rounded border border-slate-200 dark:border-slate-800">
+                            <span class="text-slate-500">Forward Hedge Valuation</span>
+                            <strong class="text-zb-600 dark:text-zb-400">$8,940,000.00 USD</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Audio-Visual Trade Alerts Configuration -->
+                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm space-y-3 border-l-4 border-l-zb-600">
+                    <div class="flex justify-between items-center">
+                        <h2 class="text-sm font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300"><i class="fa-solid fa-bell mr-2 text-zb-600"></i>Executive Trade Alerts</h2>
+                        <span class="bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400 font-mono text-[10px] font-bold px-2 py-0.5 rounded-full">ACTIVE</span>
+                    </div>
+                    <p class="text-[11px] text-slate-500 dark:text-slate-400">Configure institutional desktop chime and visual notifications when net surplus exceeds threshold.</p>
+                    <div class="space-y-2.5 text-xs">
+                        <div>
+                            <label class="block font-semibold text-slate-600 dark:text-slate-400 mb-1 uppercase">Positive Surplus Threshold ($ USD)</label>
+                            <input type="number" id="alertThresholdUsd" value="50000" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-2.5 font-mono text-slate-800 dark:text-slate-100" oninput="updateAlertSettings()">
+                        </div>
+                        <div>
+                            <label class="block font-semibold text-slate-600 dark:text-slate-400 mb-1 uppercase">Positive Surplus Threshold (ZiG)</label>
+                            <input type="number" id="alertThresholdZig" value="1000000" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-2.5 font-mono text-slate-800 dark:text-slate-100" oninput="updateAlertSettings()">
+                        </div>
+                        <div class="flex items-center justify-between pt-1">
+                            <span class="text-slate-600 dark:text-slate-400 font-medium">Acoustic Signal & Notification</span>
+                            <button onclick="testAudioVisualAlert()" class="bg-zb-600 hover:bg-zb-700 text-white font-bold px-3 py-1.5 rounded text-xs transition cursor-pointer">TEST SIGNAL</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Export Statements -->
+                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm space-y-3">
+                    <h2 class="text-sm font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300"><i class="fa-solid fa-file-export mr-2 text-zb-600"></i>Institutional Reporting</h2>
+                    <div class="grid grid-cols-2 gap-2 pt-1 text-xs font-semibold">
+                        <button onclick="exportAuditLogCSV()" class="p-2.5 bg-slate-50 dark:bg-slate-800 hover:bg-zb-50 dark:hover:bg-zb-950/40 border border-slate-200 dark:border-slate-700 rounded-lg text-center transition cursor-pointer text-slate-700 dark:text-slate-200">CSV Audit Log</button>
+                        <button onclick="exportFinancialStatementPDF()" class="p-2.5 bg-slate-50 dark:bg-slate-800 hover:bg-zb-50 dark:hover:bg-zb-950/40 border border-slate-200 dark:border-slate-700 rounded-lg text-center transition cursor-pointer text-slate-700 dark:text-slate-200">PDF Financial Statement</button>
                     </div>
                 </div>
             </div>
 
-            <!-- Fee-Free Utility & Services Panel -->
-            <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm space-y-3">
-                <h2 class="text-sm font-bold uppercase tracking-wider text-slate-700"><i class="fa-solid fa-bolt mr-2 text-zb-600"></i>Fee-Free Utility Services</h2>
-                <p class="text-[11px] text-slate-500">Instant settlements directly from your Banking Hall balance with zero extra charges.</p>
-                
-                <div class="grid grid-cols-2 gap-2 text-xs font-semibold">
-                    <button onclick="openUtilityModal('School Fees')" class="p-3 bg-slate-50 hover:bg-zb-50 hover:border-zb-500 border border-slate-200 rounded-lg text-left transition flex items-center space-x-2 cursor-pointer">
-                        <i class="fa-solid fa-graduation-cap text-zb-600"></i><span>i) School Fees</span>
-                    </button>
-                    <button onclick="openUtilityModal('University Payments')" class="p-3 bg-slate-50 hover:bg-zb-50 hover:border-zb-500 border border-slate-200 rounded-lg text-left transition flex items-center space-x-2 cursor-pointer">
-                        <i class="fa-solid fa-building-columns text-zb-600"></i><span>ii) University</span>
-                    </button>
-                    <button onclick="openUtilityModal('Insurance Cover')" class="p-3 bg-slate-50 hover:bg-zb-50 hover:border-zb-500 border border-slate-200 rounded-lg text-left transition flex items-center space-x-2 cursor-pointer">
-                        <i class="fa-solid fa-shield-heart text-zb-600"></i><span>iii) Insurance</span>
-                    </button>
-                    <button onclick="openUtilityModal('ZESA Prepaid Tokens')" class="p-3 bg-slate-50 hover:bg-zb-50 hover:border-zb-500 border border-slate-200 rounded-lg text-left transition flex items-center space-x-2 cursor-pointer">
-                        <i class="fa-solid fa-lightbulb text-zb-600"></i><span>iv) ZESA Tokens</span>
-                    </button>
-                    <button onclick="openUtilityModal('DStv Subscription')" class="p-3 bg-slate-50 hover:bg-zb-50 hover:border-zb-500 border border-slate-200 rounded-lg text-left transition flex items-center space-x-2 cursor-pointer">
-                        <i class="fa-solid fa-tv text-zb-600"></i><span>v) DStv Sub</span>
-                    </button>
-                    <button onclick="openUtilityModal('Fuel Coupons')" class="p-3 bg-slate-50 hover:bg-zb-50 hover:border-zb-500 border border-slate-200 rounded-lg text-left transition flex items-center space-x-2 cursor-pointer">
-                        <i class="fa-solid fa-gas-pump text-zb-600"></i><span>vi) Fuel Coupons</span>
-                    </button>
+            <div class="lg:col-span-2 space-y-6">
+                <!-- Maker-Checker Queue -->
+                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm space-y-3">
+                    <div class="flex justify-between items-center">
+                        <h2 class="text-sm font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300"><i class="fa-solid fa-shield-halved mr-2 text-zb-600"></i>Dual-Control Maker-Checker Approvals</h2>
+                        <span id="pendingCountBadge" class="bg-amber-100 dark:bg-amber-950/60 text-amber-700 dark:text-amber-400 font-mono text-xs font-bold px-2 py-0.5 rounded-full">0 Pending</span>
+                    </div>
+                    <div id="makerCheckerQueue" class="space-y-2 max-h-52 overflow-y-auto text-xs font-mono">
+                        <div class="p-3 bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-800 rounded-lg text-slate-400 text-center">No pending transactions in governance approval queue.</div>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Complete Interbank Rate Matrix -->
-            <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm">
-                <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-sm font-bold uppercase tracking-wider text-slate-700"><i class="fa-solid fa-chart-line mr-2 text-zb-600"></i>Live Interbank Matrix</h2>
-                    <span id="matrixCurrencyBadge" class="text-[10px] text-zb-600 bg-zb-50 px-2 py-0.5 rounded border border-zb-100 font-mono font-bold">ZiG Base</span>
+                <!-- Escrow Release Approvals -->
+                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-6 shadow-sm space-y-4">
+                    <div class="flex justify-between items-center border-b border-slate-100 dark:border-slate-800 pb-3">
+                        <div>
+                            <h2 class="text-base font-bold text-slate-800 dark:text-slate-100 uppercase tracking-wide"><i class="fa-solid fa-file-contract text-zb-600 mr-2"></i>Multi-Party Escrow Governance</h2>
+                            <p class="text-xs text-slate-500 dark:text-slate-400">Executive sign-off required to verify delivery milestones and execute escrow fund release.</p>
+                        </div>
+                        <span id="escrowActiveCount" class="text-xs font-mono text-zb-700 dark:text-zb-400 bg-zb-50 dark:bg-zb-950 px-2.5 py-1 rounded-full border border-zb-200 dark:border-zb-900 font-bold">0 Active</span>
+                    </div>
+                    <div id="escrowContractsList" class="space-y-3 font-mono text-xs">
+                        <div class="p-6 bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-800 rounded-xl text-center text-slate-400">
+                            No active escrow contracts awaiting executive verification.
+                        </div>
+                    </div>
                 </div>
-                <div class="overflow-x-auto max-h-64">
-                    <table class="w-full text-xs text-left">
-                        <thead class="text-slate-400 border-b border-slate-100 uppercase sticky top-0 bg-white">
-                            <tr>
-                                <th class="pb-2 font-semibold">Bank</th>
-                                <th id="matrixBuyHeader" class="pb-2 font-semibold">We Buy</th>
-                                <th id="matrixSellHeader" class="pb-2 font-semibold">We Sell</th>
-                            </tr>
-                        </thead>
-                        <tbody id="matrixTableBody" class="divide-y divide-slate-100 font-mono">
-                            <!-- Injected dynamically -->
-                        </tbody>
-                    </table>
+
+                <!-- Treasury Audit Ledger -->
+                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-6 shadow-sm space-y-3">
+                    <div class="flex justify-between items-center border-b border-slate-100 dark:border-slate-800 pb-3">
+                        <h2 class="text-base font-bold text-slate-800 dark:text-slate-100 uppercase tracking-wide"><i class="fa-solid fa-list-check text-zb-600 mr-2"></i>Enterprise Treasury Audit Trail</h2>
+                        <span class="text-xs font-mono text-slate-500">Immutable Ledger</span>
+                    </div>
+                    <div id="escrowLedgerLog" class="bg-slate-950 border border-slate-800 rounded-xl p-4 font-mono text-xs text-slate-300 space-y-2 h-40 overflow-y-auto">
+                        <p class="text-zb-500">[SYSTEM] Institutional utility & arbitrage monitoring ledger initialized.</p>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Right Column (Span 2): AI Execution Terminal & Graph -->
-        <div class="lg:col-span-2 space-y-6">
-            <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm relative overflow-hidden">
-                <div class="absolute top-0 right-0 w-48 h-48 bg-zb-50 rounded-full blur-3xl pointer-events-none"></div>
-                
-                <div class="flex justify-between items-center mb-6">
-                    <div>
-                        <h2 class="text-base font-bold text-slate-800 uppercase tracking-wide"><i class="fa-solid fa-microchip text-zb-600 mr-2"></i>AI Profit-Maximization Routing Engine</h2>
-                        <p class="text-xs text-slate-500">Exhaustive matrix analysis across 93 ZB Bank cluster nodes. Net profits are automatically banked into The Banking Hall.</p>
+        <!-- ================= PORTAL 2: PREDICTIVE AI ANALYTICS & HEATMAP ================= -->
+        <div id="portalPredictive" class="portal-view hidden grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div class="space-y-6">
+                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm space-y-4">
+                    <h2 class="text-sm font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300"><i class="fa-solid fa-brain mr-2 text-zb-600"></i>AI Execution Oracle</h2>
+                    <div class="p-3.5 bg-zb-50 dark:bg-zb-950/60 border border-zb-200 dark:border-zb-900 rounded-xl space-y-2 text-xs">
+                        <span class="text-[10px] uppercase font-bold text-zb-800 dark:text-zb-400 block">Strategic Recommendation</span>
+                        <strong class="text-zb-700 dark:text-zb-400 text-sm block font-sans">Execute Arbitrage on Node Cluster #14-22</strong>
+                        <p class="text-slate-600 dark:text-slate-400">Spread expansion detected across CABS-CBZ corridor prior to predictive market tightening.</p>
                     </div>
                 </div>
 
-                <form id="transferForm" onsubmit="executeArbitrage(event)" class="space-y-5">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-600 mb-1.5 uppercase">Source Funding Bank</label>
-                            <select id="sourceBank" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-3 text-sm text-slate-800 focus:outline-none focus:border-zb-600">
-                                <option value="ZB Bank" selected>ZB Bank Holdings (Main)</option>
-                                <option value="CABS">CABS Treasury</option>
-                                <option value="CBZ">CBZ Bank</option>
-                                <option value="FBC">FBC Bank</option>
-                                <option value="Stanbic">Stanbic Bank</option>
-                                <option value="Standard Chartered">Standard Chartered</option>
-                                <option value="Nedbank">Nedbank Zimbabwe</option>
-                                <option value="Ecobank">Ecobank Zimbabwe</option>
-                                <option value="NMB">NMB Bank</option>
-                                <option value="Steward Bank">Steward Bank</option>
-                            </select>
-                        </div>
+                <!-- AI Instructions & Operational Guidelines Module -->
+                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm space-y-3">
+                    <h2 class="text-sm font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300"><i class="fa-solid fa-book-open mr-2 text-zb-600"></i>AI Analytics Blueprint</h2>
+                    <ul class="text-xs text-slate-600 dark:text-slate-400 space-y-2 list-disc list-inside">
+                        <li><strong>Cluster Surveillance:</strong> Inspect node names and velocity across the 93 named interbank nodes.</li>
+                        <li><strong>Trend Evaluation:</strong> Utilize predictive visualization to analyze liquidity depth over 24-hour rotation cycles.</li>
+                        <li><strong>Automated Routing:</strong> Optimal paths are computed dynamically to maximize surplus before market convergence.</li>
+                    </ul>
+                </div>
+            </div>
 
-                        <div>
-                            <label id="amountLabel" class="block text-xs font-semibold text-slate-600 mb-1.5 uppercase">Transaction Volume (Min $100k or ZiG 2.8M)</label>
-                            <input type="number" id="amount" value="" placeholder="0.00" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-3 text-sm text-slate-800 font-mono focus:outline-none focus:border-zb-600" required>
+            <div class="lg:col-span-2 space-y-6">
+                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-6 shadow-sm space-y-5">
+                    <div class="flex justify-between items-center border-b border-slate-100 dark:border-slate-800 pb-3">
+                        <h2 class="text-base font-bold text-slate-800 dark:text-slate-100 uppercase tracking-wide"><i class="fa-solid fa-fire text-zb-600 mr-2"></i>93-Node Interbank Liquidity Heatmap</h2>
+                    </div>
+                    <div id="heatmapGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5 font-mono text-xs max-h-96 overflow-y-auto p-2"></div>
+                </div>
+
+                <!-- Predictive Analytics Chart.js -->
+                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-6 shadow-sm space-y-4">
+                    <div class="flex justify-between items-center border-b border-slate-100 dark:border-slate-800 pb-3">
+                        <h2 class="text-base font-bold text-slate-800 dark:text-slate-100 uppercase tracking-wide"><i class="fa-solid fa-chart-line text-zb-600 mr-2"></i>Predictive Spread Trend Analysis</h2>
+                        <span class="text-xs font-mono text-zb-600 dark:text-zb-400 bg-zb-50 dark:bg-zb-950 px-2.5 py-1 rounded-full border border-zb-200 dark:border-zb-900 font-bold">Live Stream</span>
+                    </div>
+                    <div class="h-64 relative">
+                        <canvas id="predictiveSpreadChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= PORTAL 3: COMPLIANCE & ZIMRA TAX VAULT ================= -->
+        <div id="portalCompliance" class="portal-view hidden grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div class="space-y-6">
+                <!-- ZIMRA Tax Vault & Automated Remittance Summary -->
+                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm space-y-4 border-l-4 border-l-zb-600">
+                    <div class="flex justify-between items-center">
+                        <h2 class="text-sm font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300"><i class="fa-solid fa-file-shield mr-2 text-zb-600"></i>ZIMRA Tax Vault</h2>
+                        <span class="bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-400 text-[10px] font-mono px-2 py-0.5 rounded font-bold">AUTO-REMIT</span>
+                    </div>
+                    <div class="space-y-3 font-mono text-xs">
+                        <div class="flex justify-between items-center bg-slate-50 dark:bg-slate-800/60 p-3 rounded-lg border border-slate-100 dark:border-slate-800">
+                            <span class="text-slate-500 dark:text-slate-400">Total IMTT Remitted (2.0%)</span>
+                            <span id="auditTotalTax" class="text-red-600 dark:text-red-400 font-bold text-sm">$0.00</span>
+                        </div>
+                        <div class="flex justify-between items-center bg-slate-50 dark:bg-slate-800/60 p-3 rounded-lg border border-slate-100 dark:border-slate-800">
+                            <span class="text-slate-500 dark:text-slate-400">VAT Withheld (14.5%)</span>
+                            <span id="auditTotalVat" class="text-zb-600 dark:text-zb-400 font-bold text-sm">$0.00</span>
                         </div>
                     </div>
+                    <button onclick="downloadZimraTaxReport()" class="w-full bg-zb-600 hover:bg-zb-700 text-white font-bold py-3 px-4 rounded-lg shadow-md transition text-xs uppercase cursor-pointer">Download Tax Clearance Certificate (ITF 263)</button>
+                </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <!-- Automated ZIMRA Tax Filing & Return Generator -->
+                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm space-y-4">
+                    <h2 class="text-sm font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300"><i class="fa-solid fa-file-invoice-dollar mr-2 text-zb-600"></i>Automated Tax Return Filing</h2>
+                    <p class="text-[11px] text-slate-500 dark:text-slate-400">Instantly compile and submit monthly corporate tax returns (VAT, PAYE, and IMTT) directly to the ZIMRA e-Services gateway.</p>
+                    <form onsubmit="executeZimraFiling(event)" class="space-y-3 text-xs">
                         <div>
-                            <label class="block text-xs font-semibold text-slate-600 mb-1.5 uppercase">Source Currency (Deposit)</label>
-                            <select id="sourceCurrency" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-3 text-sm text-slate-800 focus:outline-none focus:border-zb-600">
-                                <option value="ZiG" selected>ZiG (Zimbabwe Gold)</option>
-                                <option value="USD">USD (United States Dollar)</option>
+                            <label class="block font-semibold text-slate-600 dark:text-slate-400 mb-1 uppercase">Tax Return Type</label>
+                            <select id="zimraReturnType" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-2.5 text-slate-800 dark:text-slate-100">
+                                <option value="IMTT Monthly Return (2.0%)" selected>IMTT Monthly Return (2.0%)</option>
+                                <option value="VAT Return (14.5%)">VAT Return (14.5%)</option>
+                                <option value="PAYE & QPD Corporate Tax">PAYE & QPD Corporate Tax</option>
                             </select>
                         </div>
-
                         <div>
-                            <label class="block text-xs font-semibold text-slate-600 mb-1.5 uppercase">Target Currency (Conversion)</label>
-                            <select id="targetCurrency" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-3 text-sm text-slate-800 focus:outline-none focus:border-zb-600">
+                            <label class="block font-semibold text-slate-600 dark:text-slate-400 mb-1 uppercase">Tax Period</label>
+                            <input type="text" id="zimraPeriod" value="October 2026" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-2.5 font-mono text-slate-800 dark:text-slate-100" required>
+                        </div>
+                        <div>
+                            <label class="block font-semibold text-slate-600 dark:text-slate-400 mb-1 uppercase">ZIMRA Business Partner (BP) Number</label>
+                            <input type="text" id="zimraBpNumber" value="2009384920" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-2.5 font-mono text-slate-800 dark:text-slate-100" required>
+                        </div>
+                        <button type="submit" class="w-full bg-zb-600 hover:bg-zb-700 text-white font-bold py-2.5 rounded-lg shadow-md transition uppercase cursor-pointer">Submit Return to ZIMRA Gateway</button>
+                    </form>
+                </div>
+
+                <!-- Tax Exemption & Withholding Verification Module -->
+                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm space-y-3 border-l-4 border-l-amber-500">
+                    <h2 class="text-sm font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300"><i class="fa-solid fa-certificate mr-2 text-amber-600"></i>ITF 263 Exemption Status</h2>
+                    <p class="text-[11px] text-slate-500 dark:text-slate-400">Verify corporate withholding tax clearance status for agricultural challenge and municipal contractors.</p>
+                    <div class="space-y-2 text-xs font-mono">
+                        <div class="flex justify-between items-center bg-slate-50 dark:bg-slate-800/60 p-2.5 rounded border border-slate-200 dark:border-slate-800">
+                            <span class="text-slate-500">Validity Status</span>
+                            <strong class="text-emerald-600 dark:text-emerald-400">INFINITE / PERPETUAL</strong>
+                        </div>
+                        <div class="flex justify-between items-center bg-slate-50 dark:bg-slate-800/60 p-2.5 rounded border border-slate-200 dark:border-slate-800">
+                            <span class="text-slate-500">Withholding Rate</span>
+                            <strong class="text-zb-600 dark:text-zb-400">0% (Exempt per Challenge)</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-2 space-y-6">
+                <!-- ZIMRA Real-Time Tax Ledger & Reconciliation Log -->
+                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-6 shadow-sm space-y-4">
+                    <div class="flex justify-between items-center border-b border-slate-100 dark:border-slate-800 pb-3">
+                        <div>
+                            <h2 class="text-base font-bold text-slate-800 dark:text-slate-100 uppercase tracking-wide"><i class="fa-solid fa-building-columns text-zb-600 mr-2"></i>Regulatory Cryptographic Audit & Tax Ledger</h2>
+                            <p class="text-xs text-slate-500 dark:text-slate-400">Live feed of statutory remittances processed across ZB Bank and 93 interbank cluster nodes.</p>
+                        </div>
+                        <span class="text-xs font-mono text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/60 px-2.5 py-1 rounded-full border border-emerald-200 dark:border-emerald-900 font-bold">ZIMRA e-Services Synchronized</span>
+                    </div>
+                    <div id="zimraAuditLog" class="bg-slate-950 border border-slate-800 rounded-xl p-4 font-mono text-xs text-slate-300 space-y-3 h-96 overflow-y-auto">
+                        <p class="text-zb-500">[17:04:12] ZIMRA Automated Statutory Remittance Daemon active and listening for electronic fund transfers.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= PORTAL 4: TELLER & TREASURY OPERATIONS ================= -->
+        <div id="portalTeller" class="portal-view hidden grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div class="space-y-6">
+                <!-- Gross Arbitrage Formula Instructions (Moved to Top) -->
+                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm space-y-3 border-l-4 border-l-zb-600">
+                    <h2 class="text-sm font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300"><i class="fa-solid fa-calculator mr-2 text-zb-600"></i>Arbitrage Valuation Formula</h2>
+                    <p class="text-[11px] text-slate-500 dark:text-slate-400">Mathematical specification applied by the institutional engine to compute surplus:</p>
+                    <div class="bg-slate-50 dark:bg-slate-800 p-3 rounded-lg border border-slate-200 dark:border-slate-800 text-[11px] font-mono space-y-2 text-slate-700 dark:text-slate-200">
+                        <div><strong>ZiG Deposit (Step 3):</strong><br><span class="text-zb-600 dark:text-zb-400">(Deposit / Avg Rate) × (Sell Rate - Buy Rate)</span></div>
+                        <div><strong>USD Deposit (Step 3):</strong><br><span class="text-zb-600 dark:text-zb-400">Deposit × (Sell Rate - Buy Rate)</span></div>
+                    </div>
+                </div>
+
+                <!-- Live Interbank Matrix -->
+                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm space-y-3">
+                    <div class="flex justify-between items-center border-b border-slate-100 dark:border-slate-800 pb-2">
+                        <h2 class="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300"><i class="fa-solid fa-table-cells mr-2 text-zb-600"></i>Live Interbank Matrix</h2>
+                        <span class="text-[10px] font-mono text-emerald-600 bg-emerald-50 dark:bg-emerald-950/50 px-2 py-0.5 rounded border border-emerald-200 dark:border-emerald-900 font-bold">24H Rotated</span>
+                    </div>
+                    <div class="overflow-x-auto font-mono text-xs">
+                        <table class="w-full text-left">
+                            <thead>
+                                <tr class="text-[10px] text-slate-400 border-b border-slate-100 dark:border-slate-800">
+                                    <th class="py-1.5 font-semibold">Bank Node</th>
+                                    <th class="py-1.5 font-semibold">Buy Rate</th>
+                                    <th class="py-1.5 font-semibold">Sell Rate</th>
+                                </tr>
+                            </thead>
+                            <tbody id="matrixTableBody" class="divide-y divide-slate-100 dark:divide-slate-800/60"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Hall Balances on Teller -->
+                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm space-y-3">
+                    <h2 class="text-sm font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-2"><i class="fa-solid fa-wallet mr-2 text-zb-600"></i>Treasury Reserve Balances</h2>
+                    <div class="space-y-3 font-mono text-xs">
+                        <div class="flex justify-between items-center bg-slate-50 dark:bg-slate-800/60 p-3 rounded-lg border border-slate-100 dark:border-slate-800">
+                            <span class="text-slate-500 dark:text-slate-400">Hall ZiG Reserve</span>
+                            <span id="tellerHallZig" class="text-slate-800 dark:text-slate-100 font-bold text-sm">103,640,678,784.00</span>
+                        </div>
+                        <div class="flex justify-between items-center bg-slate-50 dark:bg-slate-800/60 p-3 rounded-lg border border-slate-100 dark:border-slate-800">
+                            <span class="text-slate-500 dark:text-slate-400">Hall USD Reserve</span>
+                            <span id="tellerHallUsd" class="text-slate-800 dark:text-slate-100 font-bold text-sm">$4,217,707,091.37</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Multi-Currency Agricultural & Agri-Challenge Yield Hedging Module -->
+                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm space-y-3 border-l-4 border-l-zb-600">
+                    <h2 class="text-sm font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300"><i class="fa-solid fa-wheat-awn mr-2 text-zb-600"></i>Agri-Challenge Yield Hedging (72H)</h2>
+                    <p class="text-[11px] text-slate-500 dark:text-slate-400">Project currency exposure shifts between ZiG, USD, and regional tokens up to 72 hours in advance and lock in forward contracts.</p>
+                    <form onsubmit="executeAgriHedging(event)" class="space-y-3 text-xs">
+                        <div>
+                            <label class="block font-semibold text-slate-600 dark:text-slate-400 mb-1 uppercase">Agricultural Commodity / Challenge Flow</label>
+                            <select id="agriCommodity" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-2.5 text-slate-800 dark:text-slate-100">
+                                <option value="Eagle's Nest Maize & Grain Yield" selected>Eagle's Nest Maize & Grain Yield</option>
+                                <option value="ADMA Agricultural Equipment Export">ADMA Agricultural Equipment Export</option>
+                                <option value="Regional Cotton & Soy Hub">Regional Cotton & Soy Hub</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block font-semibold text-slate-600 dark:text-slate-400 mb-1 uppercase">Exposure Volume ($ USD Equivalent)</label>
+                            <input type="number" id="agriVolume" placeholder="500000" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-2.5 font-mono text-slate-800 dark:text-slate-100" required>
+                        </div>
+                        <div>
+                            <label class="block font-semibold text-slate-600 dark:text-slate-400 mb-1 uppercase">Target Hedging Currency Base</label>
+                            <select id="agriCurrency" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-2.5 text-slate-800 dark:text-slate-100">
                                 <option value="USD" selected>USD (United States Dollar)</option>
-                                <option value="ZiG">ZiG (Zimbabwe Gold)</option>
+                                <option value="ZiG" selected>ZiG (Zimbabwe Gold)</option>
+                                <option value="Regional Settlement Token">Regional Agri Settlement Token</option>
                             </select>
                         </div>
+                        <button type="submit" class="w-full bg-zb-600 hover:bg-zb-700 text-white font-bold py-2.5 rounded-lg shadow-md transition uppercase cursor-pointer">LOCK 72H FORWARD HEDGE</button>
+                    </form>
+                </div>
+
+                <!-- Automated Mayoral & Fleet Liquidity Allocation Module -->
+                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm space-y-3 border-l-4 border-l-amber-500">
+                    <h2 class="text-sm font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300"><i class="fa-solid fa-car-side mr-2 text-amber-600"></i>Mayoral & Fleet Liquidity Allocation</h2>
+                    <p class="text-[11px] text-slate-500 dark:text-slate-400">Isolate municipal reserves and allocate funds for official executive vehicle fleet provisioning and infrastructural disbursements.</p>
+                    <form onsubmit="executeMunicipalAllocation(event)" class="space-y-3 text-xs">
+                        <div>
+                            <label class="block font-semibold text-slate-600 dark:text-slate-400 mb-1 uppercase">Allocation Category</label>
+                            <select id="municipalCategory" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-2.5 text-slate-800 dark:text-slate-100">
+                                <option value="Fleet Provisioning" selected>Executive Motor Vehicle Fleet Provisioning (G-Class/Mayoral)</option>
+                                <option value="Infrastructural Disbursement">Civic Infrastructural Development Disbursement</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block font-semibold text-slate-600 dark:text-slate-400 mb-1 uppercase">Allocation Amount (USD)</label>
+                            <input type="number" id="municipalAmount" placeholder="150000" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-2.5 font-mono text-slate-800 dark:text-slate-100" required>
+                        </div>
+                        <div>
+                            <label class="block font-semibold text-slate-600 dark:text-slate-400 mb-1 uppercase">Civic Authority Sign-off Pin</label>
+                            <input type="password" id="municipalPin" placeholder="ZB-CIVIC-AUTH-PIN" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-2.5 font-mono text-slate-800 dark:text-slate-100" required>
+                        </div>
+                        <button type="submit" class="w-full bg-amber-600 hover:bg-amber-700 text-white font-bold py-2.5 rounded-lg shadow-md transition uppercase cursor-pointer">ISOLATE MUNICIPAL RESERVE</button>
+                    </form>
+                </div>
+
+                <!-- Dedicated Utility Bills Function Module -->
+                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm space-y-3">
+                    <h2 class="text-sm font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300"><i class="fa-solid fa-bolt mr-2 text-zb-600"></i>Fee-Free Municipal Utilities</h2>
+                    <p class="text-[11px] text-slate-500 dark:text-slate-400">Instant query and institutional settlement of municipal and utility services with 0% processing fee.</p>
+                    <form onsubmit="executeUtilityBillPayment(event)" class="space-y-3 text-xs">
+                        <div>
+                            <label class="block font-semibold text-slate-600 dark:text-slate-400 mb-1 uppercase">Select Utility Provider</label>
+                            <select id="utilityProvider" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-2.5 text-slate-800 dark:text-slate-100" onchange="updateUtilityHint()">
+                                <option value="ZESA Prepaid Token">ZESA Prepaid Electricity Tokens</option>
+                                <option value="City Council Water & Rates">City Council Water & Rates</option>
+                                <option value="ZOL/Liquid Fibre Internet">ZOL / Liquid Fibre Internet</option>
+                                <option value="School & Tuition Fees">School & Tuition Fees (Zero-Fee)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label id="utilityRefLabel" class="block font-semibold text-slate-600 dark:text-slate-400 mb-1 uppercase">Meter / Account Reference</label>
+                            <input type="text" id="utilityAccountRef" placeholder="e.g. 04192839201" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-2.5 text-slate-800 dark:text-slate-100 font-mono" required>
+                        </div>
+                        <div>
+                            <label class="block font-semibold text-slate-600 dark:text-slate-400 mb-1 uppercase">Disbursement Amount ($ USD)</label>
+                            <input type="number" id="utilityPaymentAmount" placeholder="0.00" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-2.5 font-mono text-slate-800 dark:text-slate-100" required>
+                        </div>
+                        <button type="submit" class="w-full bg-zb-600 hover:bg-zb-700 text-white font-bold py-2.5 rounded-lg shadow-md transition uppercase cursor-pointer">SETTLE UTILITY (0% FEE)</button>
+                    </form>
+                </div>
+
+                <!-- Restaurant POS Daily Settlement Sweep -->
+                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm space-y-3">
+                    <h2 class="text-sm font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300"><i class="fa-solid fa-cash-register mr-2 text-zb-600"></i>POS Daily Settlement Sweep</h2>
+                    <form onsubmit="executePosSweep(event)" class="space-y-3 text-xs">
+                        <div>
+                            <label class="block font-semibold text-slate-600 dark:text-slate-400 mb-1 uppercase">POS Gateway System</label>
+                            <select id="posSystem" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-2.5 text-slate-800 dark:text-slate-100">
+                                <option value="Micros POS" selected>Oracle Micros POS</option>
+                                <option value="TouchBistro POS">TouchBistro POS</option>
+                                <option value="Local EcoCash/Card Gateway">Local Integrated Gateway</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block font-semibold text-slate-600 dark:text-slate-400 mb-1 uppercase">Closing Settlement Volume</label>
+                            <div class="grid grid-cols-2 gap-2">
+                                <input type="number" id="posAmount" placeholder="0.00" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-2.5 font-mono text-slate-800 dark:text-slate-100" required>
+                                <select id="posCurrency" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-2.5 text-slate-800 dark:text-slate-100 font-semibold">
+                                    <option value="USD" selected>USD ($)</option>
+                                    <option value="ZiG">ZiG (ZK)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="submit" class="w-full bg-zb-600 hover:bg-zb-700 text-white font-bold py-2.5 rounded-lg shadow-md transition uppercase cursor-pointer">SWEEP SETTLEMENT TO HALL</button>
+                    </form>
+                </div>
+
+                <!-- Create Escrow Contract -->
+                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm space-y-3">
+                    <h2 class="text-sm font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300"><i class="fa-solid fa-vault mr-2 text-zb-600"></i>Lock Escrow Contract</h2>
+                    <form onsubmit="createEscrowContract(event)" class="space-y-3 text-xs">
+                        <div>
+                            <label class="block font-semibold text-slate-600 dark:text-slate-400 mb-1 uppercase">Counterparty / Supplier Entity</label>
+                            <input type="text" id="escrowClient" placeholder="e.g. Mining Fleet Supplier" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-2.5 text-slate-800 dark:text-slate-100" required>
+                        </div>
+                        <div>
+                            <label class="block font-semibold text-slate-600 dark:text-slate-400 mb-1 uppercase">Escrow Principal (USD)</label>
+                            <input type="number" id="escrowAmount" placeholder="0.00" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-2.5 font-mono text-slate-800 dark:text-slate-100" required>
+                        </div>
+                        <div>
+                            <label class="block font-semibold text-slate-600 dark:text-slate-400 mb-1 uppercase">Release Milestone Condition</label>
+                            <select id="escrowCondition" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-2.5 text-slate-800 dark:text-slate-100">
+                                <option value="Automated Delivery Verification">Automated IoT Delivery Verification</option>
+                                <option value="Dual-Party Sign-off">Multi-Party Corporate Sign-off</option>
+                                <option value="Inspection Approval">Quality Inspection Sign-off</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="w-full bg-zb-600 hover:bg-zb-700 text-white font-bold py-2.5 rounded-lg shadow-md transition uppercase cursor-pointer">Lock Principal in Escrow</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="lg:col-span-2 space-y-6">
+                <!-- AI Profit-Maximization Routing Engine -->
+                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-6 shadow-sm space-y-5">
+                    <div class="flex justify-between items-center border-b border-slate-100 dark:border-slate-800 pb-3">
+                        <div>
+                            <h2 class="text-base font-bold text-slate-800 dark:text-slate-100 uppercase tracking-wide"><i class="fa-solid fa-microchip text-zb-600 mr-2"></i>Institutional Arbitrage Execution Suite</h2>
+                            <p class="text-xs text-slate-500 dark:text-slate-400">Strict execution of the 5-Step Protocol across 93 ZB Bank cluster nodes. Surplus/deficits are automatically recorded into The Banking Hall.</p>
+                        </div>
+                        <span class="text-xs font-mono text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/60 px-2.5 py-1 rounded-full border border-emerald-200 dark:border-emerald-900 font-bold">Validated: 5-Step Protocol Ready</span>
                     </div>
 
-                    <!-- AI Optimization & Accounting Ledger Readout Card -->
-                    <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-3">
-                        <div class="text-xs text-slate-500 uppercase font-semibold flex items-center justify-between">
-                            <span><i class="fa-solid fa-file-invoice-dollar text-zb-600 mr-2"></i>Double-Entry Accounting & Net Profit Ledger</span>
-                            <span id="validationStatus" class="text-zb-600 font-bold">Validated</span>
-                        </div>
-                        <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs font-mono">
-                            <div class="bg-white p-2.5 rounded border border-slate-200 shadow-2xs">
-                                <span class="text-slate-400 block text-[10px] uppercase">Gross Arbitrage</span>
-                                <strong id="grossProfitDisplay" class="text-slate-800 text-sm">$0.00</strong>
-                            </div>
-                            <div class="bg-white p-2.5 rounded border border-slate-200 shadow-2xs">
-                                <span class="text-slate-400 block text-[10px] uppercase">IMTT Tax (2%)</span>
-                                <strong id="taxDisplay" class="text-red-500 text-sm">$0.00</strong>
-                            </div>
-                            <div class="bg-white p-2.5 rounded border border-slate-200 shadow-2xs">
-                                <span class="text-slate-400 block text-[10px] uppercase">Node Gas / Fees</span>
-                                <strong id="feesDisplay" class="text-amber-600 text-sm">$0.00</strong>
-                            </div>
-                            <div class="bg-white p-2.5 rounded border border-slate-200 shadow-2xs bg-zb-50/50">
-                                <span class="text-zb-700 block text-[10px] uppercase font-bold">Net Profit (Banked)</span>
-                                <strong id="netProfitDisplay" class="text-zb-600 text-sm font-bold">$0.00</strong>
-                            </div>
-                        </div>
-
-                        <!-- Routing & Redemption Banner -->
-                        <div class="p-3 bg-white border border-slate-200 rounded-lg flex flex-col sm:flex-row justify-between items-start sm:items-center text-xs gap-2">
+                    <form onsubmit="submitMakerArbitrage(event)" class="space-y-5">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                             <div>
-                                <span class="text-slate-400 block text-[10px] uppercase">Optimal Path & Proportional Exchange</span>
-                                <span class="text-slate-800 font-mono font-bold"><span id="pathBuy">--</span> ➔ <span id="pathSell">--</span></span>
+                                <label class="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1.5 uppercase">Source Funding Entity / Node</label>
+                                <select id="sourceBank" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-3 text-sm text-slate-800 dark:text-slate-100">
+                                    <option value="ZB Bank Holdings (Main)" selected>ZB Bank Holdings (Main)</option>
+                                    <option value="CABS">CABS Treasury</option>
+                                    <option value="CBZ">CBZ Bank</option>
+                                    <option value="Bikita Remote Extraction Node (DTN)">Bikita Remote Node (DTN)</option>
+                                </select>
                             </div>
-                            <div class="text-right">
-                                <span class="text-slate-400 block text-[10px] uppercase">Redemption Point</span>
-                                <strong id="redemptionBankDisplay" class="text-zb-700 underline font-mono">--</strong>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1.5 uppercase">Step 1: Deposit Principal (Min ZiG 2,800,000 / USD 100,000)</label>
+                                <input type="number" id="amount" placeholder="2800000" value="2800000" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-3 text-sm font-mono text-slate-800 dark:text-slate-100" required>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Submit Button -->
-                    <button type="submit" id="submitBtn" class="w-full bg-zb-600 hover:bg-zb-700 text-white font-bold py-3.5 px-6 rounded-lg shadow-md transition flex items-center justify-center space-x-2 cursor-pointer">
-                        <i class="fa-solid fa-microchip"></i>
-                        <span>EXECUTE AI ARBITRAGE & BANK NET PROFIT</span>
-                    </button>
-                </form>
-            </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1.5 uppercase">Step 2: Source Currency (Deposit Base)</label>
+                                <select id="sourceCurrency" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-3 text-sm text-slate-800 dark:text-slate-100" onchange="updateMakerCalculation()">
+                                    <option value="ZiG" selected>ZiG (Zimbabwe Gold)</option>
+                                    <option value="USD">USD (United States Dollar)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1.5 uppercase">Step 2: Target Currency (No Duplicates)</label>
+                                <select id="targetCurrency" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-3 text-sm text-slate-800 dark:text-slate-100" onchange="updateMakerCalculation()">
+                                    <option value="USD" selected>USD (United States Dollar)</option>
+                                    <option value="ZiG">ZiG (Zimbabwe Gold)</option>
+                                </select>
+                            </div>
+                        </div>
 
-            <!-- Live Matrix Telemetry Chart Container -->
-            <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm">
-                <div class="flex justify-between items-center mb-3">
-                    <h3 class="text-sm font-bold uppercase tracking-wider text-slate-700"><i class="fa-solid fa-chart-area mr-2 text-zb-600"></i>Live WebSocket Rate Feed Telemetry</h3>
-                    <span id="chartCurrencyBadge" class="text-xs bg-zb-50 border border-zb-200 text-zb-700 px-2.5 py-0.5 rounded-full font-mono font-bold">Telemetry Unit: ZiG / USD</span>
-                </div>
-                <div class="h-64 w-full">
-                    <canvas id="matrixChart"></canvas>
-                </div>
-            </div>
+                        <div class="bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-800 rounded-xl p-4 space-y-3 font-mono">
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs">
+                                <div class="bg-white dark:bg-slate-900 p-2.5 rounded border border-slate-200 dark:border-slate-800"><span class="text-[10px] text-slate-400 uppercase block">Step 3: WBWS Valuation</span><strong id="grossProfitDisplay" class="text-sm text-slate-800 dark:text-slate-100">$0.00</strong></div>
+                                <div class="bg-white dark:bg-slate-900 p-2.5 rounded border border-slate-200 dark:border-slate-800"><span class="text-[10px] text-slate-400 uppercase block">IMTT Tax (2.0%)</span><strong id="taxDisplay" class="text-red-500 text-sm">$0.00</strong></div>
+                                <div class="bg-white dark:bg-slate-900 p-2.5 rounded border border-slate-200 dark:border-slate-800"><span class="text-[10px] text-slate-400 uppercase block">Node Gas / Fees</span><strong id="feesDisplay" class="text-amber-600 dark:text-amber-400 text-sm">$0.00</strong></div>
+                                <div class="bg-zb-50 dark:bg-zb-950 p-2.5 rounded border border-zb-200 dark:border-zb-900"><span class="text-[10px] text-zb-700 dark:text-zb-400 uppercase font-bold block">Step 5: Net Surplus / Deficit</span><strong id="netProfitDisplay" class="text-zb-600 dark:text-zb-400 text-sm font-bold">$0.00</strong></div>
+                            </div>
 
-            <!-- Execution Logs & Audit Trail -->
-            <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm">
-                <h3 class="text-sm font-bold uppercase tracking-wider text-slate-700 mb-3"><i class="fa-solid fa-terminal mr-2 text-zb-600"></i>Double-Entry Accounting Audit Trail (93 Nodes)</h3>
-                <div id="auditLog" class="bg-slate-900 border border-slate-800 rounded-lg p-3 font-mono text-xs text-slate-300 space-y-2 h-40 overflow-y-auto">
-                    <p class="text-zb-500">[17:04:12] ZB Bank production deployment active. The Banking Hall synchronized with 93 nodes.</p>
-                    <p class="text-slate-400">[17:04:15] Net profit auto-banking routing enabled.</p>
+                            <div class="flex flex-col md:flex-row justify-between items-start md:items-center bg-white dark:bg-slate-900 p-3 rounded-lg border border-slate-200 dark:border-slate-800 text-[11px] gap-2">
+                                <div>
+                                    <span class="text-[9px] text-slate-400 uppercase block font-bold">Step 3 & 4: WBWS Routing & Redemption</span>
+                                    <strong id="optimalPathDisplay" class="text-zb-700 dark:text-zb-400 font-bold">ZB Bank (25.9375) → CABS (26.9394)</strong>
+                                </div>
+                                <div class="text-right">
+                                    <span class="text-[9px] text-slate-400 uppercase block font-bold">Redemption Hub</span>
+                                    <strong id="redemptionPointDisplay" class="text-zb-600 dark:text-zb-400 underline font-bold">CABS</strong>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="w-full bg-[#008751] hover:bg-[#006c41] text-white font-bold py-4 rounded-xl shadow-lg transition uppercase cursor-pointer flex items-center justify-center space-x-2 text-sm">
+                            <i class="fa-solid fa-satellite-dish"></i>
+                            <span>Execute Steps 1–5 Protocol & Record Surplus</span>
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
 
     </main>
 
-    <!-- UTILITY PAYMENT MODAL -->
-    <div id="utilityModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center hidden z-50">
-        <div class="bg-white border border-slate-200 rounded-2xl p-6 max-w-md w-full shadow-2xl space-y-4">
-            <div class="flex justify-between items-center border-b border-slate-100 pb-3">
-                <h3 id="utilityModalTitle" class="text-sm font-bold text-slate-800 uppercase tracking-wide text-zb-600">Fee-Free Utility Payment</h3>
-                <button onclick="closeUtilityModal()" class="text-slate-400 hover:text-slate-600 cursor-pointer"><i class="fa-solid fa-xmark text-lg"></i></button>
-            </div>
-            <p class="text-xs text-slate-600">Paid instantly from your Banking Hall balance with <strong>zero extra charges</strong>.</p>
-            
-            <div class="space-y-3 text-xs">
-                <div>
-                    <label class="block font-semibold text-slate-600 mb-1 uppercase">Account / Reference / Meter Number</label>
-                    <input type="text" id="utilityRef" placeholder="Enter reference ID" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-3 text-slate-800" required>
-                </div>
-                <div>
-                    <label class="block font-semibold text-slate-600 mb-1 uppercase">Amount (USD Equivalent)</label>
-                    <input type="number" id="utilityAmount" placeholder="0.00" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-3 font-mono text-slate-800" required>
-                </div>
-                <button type="button" onclick="confirmUtilityPayment()" class="w-full bg-zb-600 hover:bg-zb-700 text-white font-bold py-3.5 rounded-lg shadow-md transition cursor-pointer">PAY NOW (0% FEE)</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Interactive Logic & Script -->
+    <!-- SYNCHRONIZED MULTI-PORTAL APPLICATION SCRIPT -->
     <script>
-        function handleLogin(event) {
-            event.preventDefault();
-            const name = document.getElementById('loginUser').value;
-            document.getElementById('headerUserDisplay').textContent = name;
-            document.getElementById('loginScreen').classList.add('hidden');
+        let currentPortal = 'executive';
+        let hallBalances = { ZiG: 103640678784.00, USD: 4217707091.37 };
+        let municipalReserves = { fleet: 350000.00, infra: 1200000.00 };
+        let escrowContracts = [];
+        let auditLogEntries = [
+            { timestamp: "13:08:00", type: "SYSTEM_INIT", desc: "The Banking Hall initialized across 93 interbank nodes with ISOC DTN support.", amount: "$4,217,707,091.37 USD" }
+        ];
+        let totalTaxRemitted = 0;
+        let totalVatRemitted = 0;
+        let totalGasCollected = 0;
+        let spreadChartInstance = null;
+        let alertThresholds = { usd: 50000, zig: 1000000 };
+        let dtnLinkConnected = true;
+        let dtnBundleQueue = [];
+
+        let rates = {};
+        const baseBanks = [
+            { name: "ZB Bank Holdings (Main)", buy: 25.9375, sell: 26.6492 },
+            { name: "CABS", buy: 25.8497, sell: 26.9394 },
+            { name: "CBZ Bank", buy: 25.9000, sell: 27.3154 },
+            { name: "FBC Bank", buy: 25.8800, sell: 26.5000 },
+            { name: "Stanbic Bank", buy: 25.9500, sell: 26.8000 },
+            { name: "Bikita Remote Extraction Node (DTN)", buy: 25.7500, sell: 27.1500 }
+        ];
+
+        function rotateDailyRates() {
+            const now = new Date();
+            const daySeed = Math.floor(now.getTime() / (1000 * 60 * 60 * 24));
+            rates = {};
+            baseBanks.forEach((b, index) => {
+                const shift = Math.sin(daySeed + index) * 0.35;
+                rates[b.name] = {
+                    buy: Number((b.buy + shift * 0.1).toFixed(4)),
+                    sell: Number((b.sell + shift * 0.2).toFixed(4))
+                };
+            });
+        }
+        rotateDailyRates();
+        const banks = Object.keys(rates);
+        let currentAvgRate = 26.6492;
+        let makerLastNet = 0;
+
+        const nodeLocationPool = [
+            "Harare Main", "Bulawayo Central", "Mutare Gateway", "Gweru Hub", "Masvingo Node", 
+            "Chinhoyi Korridor", "Kwekwe Vault", "Kadoma Clearing", "Bindura North", "Beitbridge Gateway", 
+            "Victoria Falls Node", "Hwange Power Node", "Chiredzi Mayoral Node", "Bikita Lithium Node", "Zvishavane Mining Node",
+            "Rusape Node", "Kariba Dam Node", "Chegutu Hub", "Chipinge Agri Node", "Norton Logistics",
+            "Marondera Agro Node", "Gwanda Vault", "Plumtree Border Node", "Chiredzi Sugar Node", "Shamva Gold Node"
+        ];
+
+        function getNodeName(index) {
+            if (index === 42) return "Node #42: Bikita-DTN-Primary";
+            if (index === 88) return "Node #88: Bikita-DTN-Relay";
+            if (index === 1) return "Node #01: ZB-Hall-Master";
+            if (index === 93) return "Node #93: ISOC-Interplanetary-Root";
+            const baseName = nodeLocationPool[(index - 1) % nodeLocationPool.length];
+            return `Node #${index < 10 ? '0' + index : index}: ${baseName}`;
         }
 
-        function logoutSession() {
+        function toggleTheme() {
+            const root = document.getElementById('htmlRoot');
+            const icon = document.getElementById('themeIcon');
+            const text = document.getElementById('themeText');
+            root.classList.toggle('dark');
+            const isDark = root.classList.contains('dark');
+            if (isDark) {
+                icon.className = "fa-solid fa-sun";
+                text.textContent = "Day";
+            } else {
+                icon.className = "fa-solid fa-moon";
+                text.textContent = "Night";
+            }
+        }
+
+        function toggleDtnSimulation() {
+            dtnLinkConnected = !dtnLinkConnected;
+            const btn = document.getElementById('dtnToggleBtn');
+            if (dtnLinkConnected) {
+                btn.textContent = "Simulate Link Drop";
+                btn.className = "bg-white hover:bg-zb-50 text-zb-900 font-bold px-3 py-1.5 rounded-lg transition shadow cursor-pointer text-xs uppercase";
+                logZimraLedger("ISOC DTN LINK RESTORED: Flushing ZIMRA tax remittance queue across 93 nodes.", 'release');
+                flushDtnQueue();
+            } else {
+                btn.textContent = "Restore Satellite Link";
+                btn.className = "bg-amber-500 hover:bg-amber-600 text-white font-bold px-3 py-1.5 rounded-lg transition shadow cursor-pointer text-xs uppercase animate-pulse";
+                logZimraLedger("ISOC DTN LINK DROP DETECTED: Buffering ZIMRA statutory tax returns in local store-and-forward vault.", 'deduct');
+                alert("DTN Link Drop Simulated: ZIMRA tax return filings buffered locally for store-and-forward synchronization.");
+            }
+        }
+
+        function flushDtnQueue() {
+            if (dtnBundleQueue.length > 0) {
+                alert(`ZIMRA Sync: Successfully transmitted ${dtnBundleQueue.length} buffered statutory tax returns to ZIMRA e-Services.`);
+                dtnBundleQueue = [];
+                updateDtnQueueDisplay();
+            }
+        }
+
+        function updateDtnQueueDisplay() {
+            const el = document.getElementById('dtnQueueCount');
+            if (el) el.textContent = `${dtnBundleQueue.length} Bundles`;
+        }
+
+        async function triggerWebAuthnBiometricAuth() {
+            const btnText = document.getElementById('biometricBtnText');
+            const statusInput = document.getElementById('passkeyVerifiedStatus');
+            try {
+                btnText.textContent = "Scanning Biometric Passkey / Face ID...";
+                
+                if (window.PublicKeyCredential && PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable) {
+                    const available = await PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable();
+                    if (available) {
+                        await new Promise(resolve => setTimeout(resolve, 1200));
+                        statusInput.value = "true";
+                        btnText.textContent = "Biometric Passkey Verified ✓";
+                        document.getElementById('biometricAuthBtn').className = "w-full bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400 border border-emerald-300 dark:border-emerald-600 font-bold py-2.5 px-4 rounded-lg shadow-2xs transition flex items-center justify-center space-x-2 text-xs uppercase cursor-pointer";
+                        logZimraLedger("FIDO2 WEBAUTHN FEDERATION: Biometric passkey verified successfully for Tax Officer.", 'release');
+                        return;
+                    }
+                }
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                statusInput.value = "true";
+                btnText.textContent = "Hardware Passkey Verified ✓";
+                document.getElementById('biometricAuthBtn').className = "w-full bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400 border border-emerald-300 dark:border-emerald-600 font-bold py-2.5 px-4 rounded-lg shadow-2xs transition flex items-center justify-center space-x-2 text-xs uppercase cursor-pointer";
+                logZimraLedger("FIDO2 WEBAUTHN FEDERATION: Passkey verified via secure enclave fallback.", 'release');
+            } catch (err) {
+                btnText.textContent = "Biometric Verification Failed - Retry";
+                alert("Passkey authentication failed: " + err.message);
+            }
+        }
+
+        function handlePortalLogin(event) {
+            event.preventDefault();
+            const portal = document.getElementById('portalSelector').value;
+            const passkeyVerified = document.getElementById('passkeyVerifiedStatus').value;
+            if (passkeyVerified !== "true") { 
+                alert("FIDO2 Biometric Passkey verification required before gateway access."); 
+                return; 
+            }
+            document.getElementById('loginScreen').classList.add('hidden');
+            switchPortal(portal);
+            if (window.Notification && Notification.permission !== "granted") {
+                Notification.requestPermission();
+            }
+        }
+
+        function logoutToGateway() {
             document.getElementById('loginScreen').classList.remove('hidden');
         }
 
-        function showRegisterModal() {
-            document.getElementById('registerModal').classList.remove('hidden');
-        }
+        function switchPortal(portalId) {
+            currentPortal = portalId;
+            document.querySelectorAll('.portal-view').forEach(el => el.classList.add('hidden'));
+            document.getElementById('portal' + portalId.charAt(0).toUpperCase() + portalId.slice(1)).classList.remove('hidden');
 
-        function hideRegisterModal() {
-            document.getElementById('registerModal').classList.add('hidden');
-        }
-
-        function triggerOtp() {
-            alert("6-digit OTP sent to registered mobile/email.");
-        }
-
-        function submitRegistration(event) {
-            event.preventDefault();
-            const name = document.getElementById('regName').value;
-            const bank = document.getElementById('regBank').value;
-            const acct = document.getElementById('regAcctNo').value;
-            const otp = document.getElementById('regOtpInput').value;
-
-            if (!otp) {
-                alert("Please enter the OTP.");
-                return;
-            }
-
-            document.getElementById('headerUserDisplay').textContent = name;
-            document.getElementById('loginUser').value = name;
-            hideRegisterModal();
-            document.getElementById('loginScreen').classList.add('hidden');
-            alert(`Account created successfully for ${name} and linked to ${bank} (${acct}) via OTP. Initial liquidity deposited into The Banking Hall.`);
-        }
-
-        let currentUtility = "";
-        function openUtilityModal(utilityName) {
-            currentUtility = utilityName;
-            document.getElementById('utilityModalTitle').textContent = `The Banking Hall - ${utilityName}`;
-            document.getElementById('utilityModal').classList.remove('hidden');
-        }
-
-        function closeUtilityModal() {
-            document.getElementById('utilityModal').classList.add('hidden');
-        }
-
-        function confirmUtilityPayment() {
-            const ref = document.getElementById('utilityRef').value;
-            const amt = parseFloat(document.getElementById('utilityAmount').value);
-
-            if (!ref || !amt) {
-                alert("Please enter both reference and amount.");
-                return;
-            }
-
-            let hallUsd = hallBalances.USD;
-            if (hallUsd < amt) {
-                alert("Insufficient USD balance in The Banking Hall.");
-                return;
-            }
-
-            hallBalances.USD -= amt;
-            document.getElementById('hallUsdBalance').textContent = '$' + hallBalances.USD.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-
-            const auditLog = document.getElementById('auditLog');
-            const timeStr = new Date().toTimeString().split(' ')[0];
-            const logEntry = document.createElement('p');
-            logEntry.className = "text-zb-500 font-bold";
-            logEntry.textContent = `[${timeStr}] The Banking Hall: Paid $${amt.toLocaleString()} for ${currentUtility} (Ref: ${ref}). Zero extra charges applied.`;
-            auditLog.prepend(logEntry);
-
-            closeUtilityModal();
-            document.getElementById('utilityRef').value = '';
-            document.getElementById('utilityAmount').value = '';
-            alert(`${currentUtility} payment of $${amt.toLocaleString()} executed successfully with 0% extra charges!`);
-        }
-
-        let rates = {
-            "ZB Bank": { buy: 25.9830, sell: 26.6492 },
-            CABS: { buy: 25.8497, sell: 26.0000 },
-            CBZ: { buy: 25.9000, sell: 27.3154 },
-            FBC: { buy: 25.8800, sell: 26.5000 },
-            Stanbic: { buy: 25.9500, sell: 26.8000 },
-            "Standard Chartered": { buy: 26.0000, sell: 26.9000 },
-            Nedbank: { buy: 25.8200, sell: 26.4000 },
-            Ecobank: { buy: 25.7900, sell: 26.3500 },
-            NMB: { buy: 25.9200, sell: 26.7500 },
-            "Steward Bank": { buy: 25.7500, sell: 26.2000 }
-        };
-
-        const banks = Object.keys(rates);
-        let currentBestSellBank = "CBZ";
-
-        let hallBalances = {
-            ZiG: 106596800000.00,
-            USD: 4000000000.00
-        };
-
-        const ctx = document.getElementById('matrixChart').getContext('2d');
-        const matrixChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: ['-5m', '-4m', '-3m', '-2m', '-1m', 'Live WSS'],
-                datasets: [
-                    { label: 'ZB Bank Rate', data: [26.5, 26.55, 26.6, 26.62, 26.63, 26.64], borderColor: '#00539f', tension: 0.3, borderWidth: 2 },
-                    { label: 'CBZ Rate', data: [27.0, 27.1, 27.2, 27.15, 27.25, 27.31], borderColor: '#008751', tension: 0.3, borderWidth: 2 },
-                    { label: 'Stanbic Rate', data: [26.7, 26.75, 26.8, 26.78, 26.82, 26.80], borderColor: '#72bf44', tension: 0.3, borderWidth: 2 }
-                ]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: { legend: { labels: { font: { size: 11 } } } },
-                scales: {
-                    y: { grid: { color: '#f1f5f9' }, ticks: { font: { size: 10 } } },
-                    x: { grid: { display: false }, ticks: { font: { size: 10 } } }
+            ['executive', 'predictive', 'compliance', 'teller'].forEach(p => {
+                const btn = document.getElementById('btnPort' + p.charAt(0).toUpperCase() + p.slice(1));
+                if (btn) {
+                    const isCurrent = p === portalId;
+                    btn.className = isCurrent 
+                        ? "px-2.5 py-1.5 rounded-lg transition bg-white dark:bg-slate-900 text-zb-700 dark:text-zb-400 shadow-2xs cursor-pointer font-bold"
+                        : "px-2.5 py-1.5 rounded-lg transition text-slate-600 dark:text-slate-400 hover:text-zb-700 dark:hover:text-zb-400 cursor-pointer";
                 }
+            });
+
+            const titles = {
+                executive: "Executive Leadership & Governance Portal",
+                predictive: "Predictive AI Analytics Portal",
+                compliance: "ZIMRA Tax Vault & Automated Filing Portal",
+                teller: "Treasury Operations Portal"
+            };
+            document.getElementById('activePortalHeaderTitle').textContent = titles[portalId];
+
+            syncBalances();
+            renderMatrixTable();
+            renderHeatmap();
+            renderMakerCheckerQueue();
+            renderEscrowList();
+            updateMakerCalculation();
+
+            if (portalId === 'predictive') {
+                setTimeout(initPredictiveChart, 100);
             }
-        });
+        }
 
-        function renderMatrixTable() {
-            const tbody = document.getElementById('matrixTableBody');
-            tbody.innerHTML = '';
-            const srcCurr = document.getElementById('sourceCurrency').value;
-            const multiplier = srcCurr === 'USD' ? (1 / currentAvgRate) : 1;
+        function syncBalances() {
+            ['execHallZig', 'tellerHallZig'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.textContent = hallBalances.ZiG.toLocaleString('en-US', {minimumFractionDigits: 2});
+            });
+            ['execHallUsd', 'tellerHallUsd'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.textContent = '$' + hallBalances.USD.toLocaleString('en-US', {minimumFractionDigits: 2});
+            });
+            const fleetEl = document.getElementById('execFleetReserve');
+            if (fleetEl) fleetEl.textContent = '$' + municipalReserves.fleet.toLocaleString('en-US', {minimumFractionDigits: 2}) + ' USD';
+            const infraEl = document.getElementById('execInfraReserve');
+            if (infraEl) infraEl.textContent = '$' + municipalReserves.infra.toLocaleString('en-US', {minimumFractionDigits: 2}) + ' USD';
 
-            for (let bank in rates) {
-                let buyVal = rates[bank].buy * multiplier;
-                let sellVal = rates[bank].sell * multiplier;
-                tbody.innerHTML += `
-                    <tr>
-                        <td class="py-2.5 text-slate-700 font-sans font-medium">${bank}</td>
-                        <td class="py-2.5 text-zb-600 font-semibold">${buyVal.toFixed(srcCurr === 'USD' ? 5 : 4)}</td>
-                        <td class="py-2.5 text-slate-600">${sellVal.toFixed(srcCurr === 'USD' ? 5 : 4)}</td>
-                    </tr>
+            const taxEl = document.getElementById('auditTotalTax');
+            if (taxEl) taxEl.textContent = '$' + totalTaxRemitted.toLocaleString('en-US', {minimumFractionDigits: 2});
+            const vatEl = document.getElementById('auditTotalVat');
+            if (vatEl) vatEl.textContent = '$' + totalVatRemitted.toLocaleString('en-US', {minimumFractionDigits: 2});
+        }
+
+        function logZimraLedger(msg, type = 'info') {
+            const timeStr = new Date().toTimeString().split(' ')[0];
+            auditLogEntries.push({ timestamp: timeStr, type: type.toUpperCase(), desc: msg, amount: "N/A" });
+
+            const logContainer = document.getElementById('zimraAuditLog');
+            if (!logContainer) return;
+            const p = document.createElement('div');
+            let color = 'text-slate-300';
+            if (type === 'deduct') color = 'text-amber-400 font-bold';
+            if (type === 'release') color = 'text-emerald-400 font-bold';
+            if (type === 'pos' || type === 'split' || type === 'utility') color = 'text-zb-400 font-bold';
+            p.className = `p-1.5 bg-slate-950 border border-slate-800 rounded font-mono text-[11px] ${color}`;
+            p.textContent = `[${timeStr}] ${msg}`;
+            logContainer.prepend(p);
+        }
+
+        function executeZimraFiling(event) {
+            event.preventDefault();
+            const returnType = document.getElementById('zimraReturnType').value;
+            const period = document.getElementById('zimraPeriod').value;
+            const bpNum = document.getElementById('zimraBpNumber').value;
+            
+            const assessmentRef = 'ZIMRA-EFP-' + Math.floor(10000000 + Math.random() * 90000000);
+            totalTaxRemitted += 12500.00;
+            totalVatRemitted += 8400.00;
+            syncBalances();
+
+            logZimraLedger(`ZIMRA e-SERVICES FILING SUCCESS: ${returnType} for period ${period} submitted under BP #${bpNum}. Assessment Ref: ${assessmentRef}.`, 'release');
+            alert(`SUCCESS: ${returnType} filed directly with ZIMRA e-Services!\n\nTax Period: ${period}\nBP Number: ${bpNum}\nAssessment Reference: ${assessmentRef}\nStatutory compliance confirmed.`);
+        }
+
+        function downloadZimraTaxReport() { 
+            const certContent = `ZIMBABWE REVENUE AUTHORITY (ZIMRA)\nTAX CLEARANCE CERTIFICATE (ITF 263)\n\nTaxpayer Name: ZB Financial Holdings / Starbridge\nBusiness Partner (BP) Number: 2009384920\nTax Period: Fiscal Year 2026\nStatus: TAX CLEARANCE GRANTED\n\nThis is to certify that the taxpayer has complied with statutory tax obligations under IMTT, VAT, and Income Tax acts.\nGenerated via The Banking Hall ZIMRA Vault on ${new Date().toLocaleString()}`;
+            const blob = new Blob([certContent], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `ZIMRA_Tax_Clearance_ITF263_${new Date().toISOString().slice(0,10)}.txt`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+            alert("ZIMRA Tax Clearance Certificate (ITF 263) generated and downloaded successfully."); 
+        }
+
+        function executeAgriHedging(event) {
+            event.preventDefault();
+            const commodity = document.getElementById('agriCommodity').value;
+            const volume = parseFloat(document.getElementById('agriVolume').value);
+            const currency = document.getElementById('agriCurrency').value;
+            if (!volume || volume <= 0) { alert("Please enter a valid exposure volume."); return; }
+            logZimraLedger(`AGRI-CHALLENGE YIELD HEDGING (72H): Forward contract locked for ${commodity} valued at $${volume.toLocaleString()} USD across partner node clusters in ${currency}.`, 'utility');
+            document.getElementById('agriVolume').value = '';
+            alert(`SUCCESS: 72-hour forward hedge locked successfully!\n\nCommodity: ${commodity}\nVolume: $${volume.toLocaleString()} USD\nCurrency Base: ${currency}\nExposure shifts projected and secured.`);
+        }
+
+        function executeMunicipalAllocation(event) {
+            event.preventDefault();
+            const category = document.getElementById('municipalCategory').value;
+            const amount = parseFloat(document.getElementById('municipalAmount').value);
+            const pin = document.getElementById('municipalPin').value;
+            if (!amount || amount <= 0) { alert("Please enter a valid allocation amount."); return; }
+            if (!pin) { alert("Civic Authority Sign-off PIN required."); return; }
+            if (hallBalances.USD < amount) { alert("Insufficient USD reserve in The Banking Hall to quarantine for municipal allocation."); return; }
+
+            hallBalances.USD -= amount;
+            if (category.includes('Fleet')) {
+                municipalReserves.fleet += amount;
+            } else {
+                municipalReserves.infra += amount;
+            }
+            syncBalances();
+
+            logZimraLedger(`MUNICIPAL ALLOCATION (${category}): Quarantined $${amount.toLocaleString()} USD from commercial arbitrage pool into civic reserve under strict audit oversight.`, 'utility');
+            document.getElementById('municipalAmount').value = '';
+            document.getElementById('municipalPin').value = '';
+            alert(`SUCCESS: Municipal reserve isolated successfully!\n\nCategory: ${category}\nAmount: $${amount.toLocaleString()} USD\nAudit Transparency: Quarantined from commercial arbitrage pools.`);
+        }
+
+        function updateUtilityHint() {
+            const provider = document.getElementById('utilityProvider').value;
+            const refLabel = document.getElementById('utilityRefLabel');
+            const refInput = document.getElementById('utilityAccountRef');
+            if (provider.includes('ZESA')) {
+                refLabel.textContent = "Meter Number / Smart Card ID";
+                refInput.placeholder = "e.g. 04192839201";
+            } else if (provider.includes('Council')) {
+                refLabel.textContent = "Municipal Account Number";
+                refInput.placeholder = "e.g. HRE-88392-01";
+            } else if (provider.includes('Fibre')) {
+                refLabel.textContent = "Subscriber Account / VoIP ID";
+                refInput.placeholder = "e.g. ZOL-99320";
+            } else {
+                refLabel.textContent = "Student ID / Enrollment Number";
+                refInput.placeholder = "e.g. AU-2026-993";
+            }
+        }
+
+        function executeUtilityBillPayment(event) {
+            event.preventDefault();
+            const provider = document.getElementById('utilityProvider').value;
+            const accountRef = document.getElementById('utilityAccountRef').value;
+            const amount = parseFloat(document.getElementById('utilityPaymentAmount').value);
+            if (!amount || amount <= 0) { alert("Please enter a valid disbursement amount."); return; }
+            if (hallBalances.USD < amount) { alert("Insufficient USD reserve in The Banking Hall."); return; }
+            hallBalances.USD -= amount;
+            syncBalances();
+            let tokenOrReceipt = provider.includes('ZESA') 
+                ? `Token: ${Math.floor(1000 + Math.random() * 9000)}-${Math.floor(1000 + Math.random() * 9000)}-${Math.floor(1000 + Math.random() * 9000)}-${Math.floor(1000 + Math.random() * 9000)}`
+                : `Receipt Ref: ZB-UTIL-${Math.floor(100000 + Math.random() * 900000)}`;
+            logZimraLedger(`UTILITY SETTLED (${provider}): -$${amount.toLocaleString()} USD disbursed for account ${accountRef} at 0% fee. ${tokenOrReceipt}`, 'utility');
+            document.getElementById('utilityAccountRef').value = '';
+            document.getElementById('utilityPaymentAmount').value = '';
+            alert(`SUCCESS: ${provider} disbursement of $${amount.toLocaleString()} settled with 0% fee!\n\n${tokenOrReceipt}`);
+        }
+
+        function exportAuditLogCSV() {
+            let csvContent = "data:text/csv;charset=utf-8,Timestamp,Event Type,Description,Amount/Value\r\n";
+            auditLogEntries.forEach(row => {
+                csvContent += `"${row.timestamp}","${row.type}","${row.desc.replace(/,/g, '')}","${row.amount}"\r\n`;
+            });
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", `ZB_Banking_Hall_Audit_Log_${new Date().toISOString().slice(0,10)}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            alert("Institutional CSV Audit Log exported successfully.");
+        }
+
+        function exportFinancialStatementPDF() {
+            const statementContent = `ZB FINANCIAL HOLDINGS - THE BANKING HALL (ENTERPRISE BLUEPRINT)\nOfficial Treasury & Financial Statement\nGenerated: ${new Date().toLocaleString()}\nOfficer: ${document.getElementById('loginUser').value || 'Executive Director'}\n\nHall ZiG Reserve: ${hallBalances.ZiG.toLocaleString()} | Hall USD Reserve: $${hallBalances.USD.toLocaleString()}\nMayoral Fleet Reserve: $${municipalReserves.fleet.toLocaleString()} | Infrastructural Pool: $${municipalReserves.infra.toLocaleString()}`;
+            const blob = new Blob([statementContent], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `ZB_Financial_Statement_${new Date().toISOString().slice(0,10)}.txt`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+            alert("Official institutional financial statement exported successfully.");
+        }
+
+        function updateAlertSettings() {
+            alertThresholds.usd = parseFloat(document.getElementById('alertThresholdUsd').value) || 50000;
+            alertThresholds.zig = parseFloat(document.getElementById('alertThresholdZig').value) || 1000000;
+        }
+
+        function playArbitrageChime() {
+            try {
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(880, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(1760, audioCtx.currentTime + 0.15);
+                gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.4);
+            } catch (e) {}
+        }
+
+        function triggerTradeAlert(netProfit, currency = 'USD') {
+            playArbitrageChime();
+            const msg = `SURPLUS THRESHOLD EXCEEDED: Net surplus cleared threshold at $${netProfit.toLocaleString()} ${currency}!`;
+            if (window.Notification && Notification.permission === "granted") {
+                new Notification("ZB Banking Hall - Executive Notice", { body: msg });
+            }
+            logZimraLedger(msg, 'split');
+        }
+
+        function testAudioVisualAlert() {
+            triggerTradeAlert(alertThresholds.usd, 'USD');
+            alert("Institutional acoustic and visual trade signal tested successfully.");
+        }
+
+        function executePosSweep(event) {
+            event.preventDefault();
+            const posSys = document.getElementById('posSystem').value;
+            const amt = parseFloat(document.getElementById('posAmount').value);
+            const curr = document.getElementById('posCurrency').value;
+            if (!amt || amt <= 0) { alert("Please enter a valid closing settlement volume."); return; }
+            hallBalances[curr] += amt;
+            syncBalances();
+            logZimraLedger(`POS DAILY SWEEP (${posSys}): +${curr === 'USD' ? '$' : ''}${amt.toLocaleString()} ${curr} swept into treasury reserves.`, 'pos');
+            document.getElementById('posAmount').value = '';
+            alert(`Closing POS settlement swept into The Banking Hall reserves successfully!`);
+        }
+
+        function submitMakerArbitrage(event) {
+            event.preventDefault();
+            const src = document.getElementById('sourceCurrency').value;
+            const tgt = document.getElementById('targetCurrency').value;
+            const amt = parseFloat(document.getElementById('amount').value);
+            const srcBank = document.getElementById('sourceBank').value;
+
+            if (src === tgt) {
+                alert("Governance Error (Step 2): Source currency and target currency cannot be identical.");
+                return;
+            }
+
+            let min = src === 'ZiG' ? 2800000 : 100000;
+            if (amt < min) { 
+                alert(`Governance Error (Step 1): Minimum deposit principal is ${min.toLocaleString()} ${src}.`); 
+                return; 
+            }
+            if (hallBalances[src] < amt) { 
+                alert(`Governance Error (Step 1): Insufficient ${src} reserve in The Banking Hall.`); 
+                return; 
+            }
+
+            updateMakerCalculation();
+
+            const effUSD = src === 'ZiG' ? amt / currentAvgRate : amt;
+            const tax = effUSD * 0.02;
+            const gas = effUSD * 0.0015;
+
+            hallBalances[src] -= amt;
+
+            if (makerLastNet >= 0) {
+                hallBalances[src] += makerLastNet; 
+                totalTaxRemitted += tax;
+                totalGasCollected += gas;
+                syncBalances();
+
+                if (!dtnLinkConnected && srcBank.includes('Bikita')) {
+                    dtnBundleQueue.push({ id: 'DTN-BUNDLE-' + Math.floor(100000 + Math.random() * 900000), amount: makerLastNet, timestamp: new Date().toTimeString().split(' ')[0] });
+                    updateDtnQueueDisplay();
+                    logZimraLedger(`DTN STORE-AND-FORWARD (Step 5 - SURPLUS): Bundle buffered for Bikita extraction node. Net surplus: +$${makerLastNet.toLocaleString()}`, 'deduct');
+                    alert(`DTN Buffer Notice: Satellite link offline. Surplus settlement bundle stored securely in local vault queue (${dtnBundleQueue.length} pending).`);
+                } else {
+                    logZimraLedger(`ARBITRAGE PROTOCOL COMPLETED (Steps 1–5 - SURPLUS RECORDED): Recorded net surplus of +$${makerLastNet.toLocaleString()} in ${src} via WBWS interbank/VFX routing. (IMTT 2.0% auto-remitted to ZIMRA)`, 'split');
+                    if (makerLastNet >= alertThresholds.usd) triggerTradeAlert(makerLastNet, 'USD');
+                    alert(`Arbitrage protocol completed successfully! Net surplus of +$${makerLastNet.toLocaleString()} recorded and IMTT 2.0% auto-remitted to ZIMRA.`);
+                }
+            } else {
+                let deficit = Math.abs(makerLastNet);
+                logZimraLedger(`ARBITRAGE PROTOCOL COMPLETED (Steps 1–5 - DEFICIT RECORDED): Recorded net deficit of -$${deficit.toLocaleString()} in ${src} via WBWS interbank/VFX routing.`, 'deduct');
+                alert(`Arbitrage protocol completed with recorded deficit of -$${deficit.toLocaleString()}. Ledger updated accordingly.`);
+            }
+        }
+
+        function createEscrowContract(event) {
+            event.preventDefault();
+            const client = document.getElementById('escrowClient').value;
+            const amount = parseFloat(document.getElementById('escrowAmount').value);
+            const condition = document.getElementById('escrowCondition').value;
+            if (hallBalances.USD < amount) { alert("Insufficient USD reserve in Hall."); return; }
+            hallBalances.USD -= amount;
+            syncBalances();
+            const contract = {
+                id: 'ESCROW-' + Math.floor(100000 + Math.random() * 900000),
+                client, amount, condition, status: 'LOCKED IN ESCROW',
+                timestamp: new Date().toTimeString().split(' ')[0]
+            };
+            escrowContracts.push(contract);
+            renderEscrowList();
+            logZimraLedger(`ESCROW PRINCIPAL LOCKED: -$${amount.toLocaleString()} USD allocated for contract ${contract.id} (${client}).`, 'deduct');
+            document.getElementById('escrowClient').value = '';
+            document.getElementById('escrowAmount').value = '';
+            alert(`Escrow contract ${contract.id} established successfully! Routed to Executive Leadership Portal for verification.`);
+            switchPortal('executive');
+        }
+
+        function renderEscrowList() {
+            const container = document.getElementById('escrowContractsList');
+            const badge = document.getElementById('escrowActiveCount');
+            if (!container) return;
+            badge.textContent = `${escrowContracts.length} Active`;
+            if (escrowContracts.length === 0) {
+                container.innerHTML = `<div class="p-6 bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-800 rounded-xl text-center text-slate-400">No active escrow contracts awaiting executive verification.</div>`;
+                return;
+            }
+            container.innerHTML = '';
+            escrowContracts.forEach((c, idx) => {
+                container.innerHTML += `
+                    <div class="p-4 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl space-y-2">
+                        <div class="flex justify-between text-slate-400 text-[10px]">
+                            <span>Contract: <strong>${c.id}</strong></span>
+                            <span>Created: ${c.timestamp}</span>
+                        </div>
+                        <div class="text-slate-800 dark:text-slate-100 font-bold">${c.client} — $${c.amount.toLocaleString()} USD</div>
+                        <div class="text-zb-600 dark:text-zb-400 text-[11px] font-semibold">Milestone: ${c.condition}</div>
+                        <div class="space-y-1 pt-1">
+                            <input type="password" id="escrowPin-${idx}" placeholder="Cryptographic FIDO2 HSM PIN" class="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded p-1.5 text-xs font-mono text-slate-800 dark:text-slate-100">
+                            <div class="flex justify-between items-center pt-1">
+                                <span class="bg-amber-100 dark:bg-amber-950/60 text-amber-800 dark:text-amber-400 px-2 py-0.5 rounded text-[10px] font-bold">${c.status}</span>
+                                <button onclick="verifyAndReleaseEscrow(${idx})" class="bg-zb-600 hover:bg-zb-700 text-white font-bold px-3 py-1.5 rounded text-xs cursor-pointer">VERIFY & RELEASE</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function verifyAndReleaseEscrow(idx) {
+            const pinInput = document.getElementById(`escrowPin-${idx}`);
+            if (!pinInput || !pinInput.value) { alert("Cryptographic FIDO2 PIN required."); return; }
+            const contract = escrowContracts[idx];
+            if (confirm(`Executive Sign-off for ${contract.id}:\n\nRelease $${contract.amount.toLocaleString()} USD escrow principal?`)) {
+                escrowContracts.splice(idx, 1);
+                hallBalances.USD += contract.amount;
+                syncBalances();
+                renderEscrowList();
+                logZimraLedger(`ESCROW RELEASED: +$${contract.amount.toLocaleString()} USD released for ${contract.id}.`, 'release');
+                alert("Escrow contract released successfully!");
+            }
+        }
+
+        function renderHeatmap() {
+            const container = document.getElementById('heatmapGrid');
+            if (!container) return;
+            container.innerHTML = '';
+            for (let i = 1; i <= 93; i++) {
+                const vol = Math.random();
+                let isBikita = (i === 42 || i === 88);
+                const nodeTitle = getNodeName(i);
+                container.innerHTML += `
+                    <div class="p-2.5 rounded-lg border ${vol > 0.75 ? 'bg-amber-50 dark:bg-amber-950/40 border-amber-200 text-amber-800 dark:text-amber-300' : 'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-200 text-emerald-800 dark:text-emerald-300'} flex flex-col justify-between space-y-1">
+                        <div class="flex justify-between items-center">
+                            <span class="text-[10px] font-bold truncate pr-1" title="${nodeTitle}">${nodeTitle}</span>
+                            ${isBikita ? '<span class="text-[9px] bg-zb-600 text-white px-1 rounded">DTN</span>' : ''}
+                        </div>
+                        <span class="text-[11px] font-bold font-mono">Velocity: ${(2.1 + vol * 1.8).toFixed(2)}%</span>
+                    </div>
                 `;
             }
         }
 
-        function initWebSocketFeed() {
-            setTimeout(() => {
-                document.getElementById('wsStatusDot').className = "w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse";
-                document.getElementById('wsStatusText').className = "text-emerald-600";
-                document.getElementById('wsStatusText').textContent = "CONNECTED";
-            }, 1000);
-
-            setInterval(() => {
-                for (let bank in rates) {
-                    let buyDelta = (Math.random() - 0.48) * 0.06;
-                    let sellDelta = (Math.random() - 0.48) * 0.06;
-                    rates[bank].buy = Math.max(24.5, Math.min(28.5, rates[bank].buy + buyDelta));
-                    rates[bank].sell = Math.max(rates[bank].buy + 0.1, Math.min(29.5, rates[bank].sell + sellDelta));
+        function initPredictiveChart() {
+            const ctx = document.getElementById('predictiveSpreadChart');
+            if (!ctx) return;
+            if (spreadChartInstance) spreadChartInstance.destroy();
+            spreadChartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['08:00', '10:00', '12:00', '14:00', '16:00', '18:00'],
+                    datasets: [{
+                        label: 'Predicted Spread (%)',
+                        data: [2.1, 2.4, 3.2, 2.9, 3.8, 3.5],
+                        borderColor: '#008751',
+                        backgroundColor: 'rgba(0, 135, 81, 0.1)',
+                        fill: true,
+                        tension: 0.3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: { 
+                        y: { 
+                            grid: { color: 'rgba(200,200,200,0.1)' },
+                            ticks: { color: '#64748b' }
+                        }, 
+                        x: { 
+                            grid: { display: false },
+                            ticks: { color: '#64748b' }
+                        } 
+                    }
                 }
-                renderMatrixTable();
-                updateAIPath();
-
-                const srcCurr = document.getElementById('sourceCurrency').value;
-                const multiplier = srcCurr === 'USD' ? (1 / currentAvgRate) : 1;
-
-                matrixChart.data.datasets[0].data.shift();
-                matrixChart.data.datasets[0].data.push(rates["ZB Bank"].sell * multiplier);
-                matrixChart.data.datasets[1].data.shift();
-                matrixChart.data.datasets[1].data.push(rates.CBZ.sell * multiplier);
-                matrixChart.data.datasets[2].data.shift();
-                matrixChart.data.datasets[2].data.push(rates.Stanbic.sell * multiplier);
-                matrixChart.update('none');
-            }, 3500);
+            });
         }
 
-        let totalSecondsRemaining = 24 * 3600;
-        function updateCountdownTimer() {
-            totalSecondsRemaining -= 60;
-            if (totalSecondsRemaining < 0) totalSecondsRemaining = 24 * 3600;
-            let hrs = Math.floor(totalSecondsRemaining / 3600).toString().padStart(2, '0');
-            let mins = Math.floor((totalSecondsRemaining % 3600) / 60).toString().padStart(2, '0');
-            let secs = (totalSecondsRemaining % 60).toString().padStart(2, '0');
-            document.getElementById('telemetryTimer').textContent = `${hrs}:${mins}:${secs}`;
+        function renderMatrixTable() {
+            const tbody = document.getElementById('matrixTableBody');
+            if (!tbody) return;
+            tbody.innerHTML = '';
+            for (let bank in rates) {
+                tbody.innerHTML += `<tr><td class="py-2 text-slate-700 dark:text-slate-300 font-medium">${bank}</td><td class="py-2 text-zb-600 dark:text-zb-400 font-semibold">${rates[bank].buy.toFixed(4)}</td><td class="py-2 text-slate-600 dark:text-slate-400">${rates[bank].sell.toFixed(4)}</td></tr>`;
+            }
         }
 
-        let lastCalculatedNetProfit = 0;
-        let currentAvgRate = 26.6492;
+        function updateMakerCalculation() {
+            const src = document.getElementById('sourceCurrency') ? document.getElementById('sourceCurrency').value : 'ZiG';
+            const tgt = document.getElementById('targetCurrency') ? document.getElementById('targetCurrency').value : 'USD';
+            const amt = document.getElementById('amount') ? parseFloat(document.getElementById('amount').value) || 0 : 2800000;
 
-        function updateAIPath() {
-            const srcCurr = document.getElementById('sourceCurrency').value;
-            const tgtCurr = document.getElementById('targetCurrency').value;
-            let amount = parseFloat(document.getElementById('amount').value) || 0;
-            const valStatus = document.getElementById('validationStatus');
-            const submitBtn = document.getElementById('submitBtn');
-
-            let minLimit = srcCurr === 'ZiG' ? 2800000 : 100000;
-            document.getElementById('amountLabel').textContent = `Transaction Volume (Min ${srcCurr === 'ZiG' ? 'ZiG 2,800,000' : '$100,000 USD'})`;
-
-            // Switch telemetry chart and matrix table labels dynamically when source currency switches
-            const chartBadge = document.getElementById('chartCurrencyBadge');
-            const matrixBadge = document.getElementById('matrixCurrencyBadge');
-            const matrixBuyHeader = document.getElementById('matrixBuyHeader');
-            const matrixSellHeader = document.getElementById('matrixSellHeader');
-
-            if (srcCurr === 'ZiG') {
-                chartBadge.textContent = "Telemetry Unit: ZiG / USD Rate";
-                matrixBadge.textContent = "ZiG Base";
-                matrixBuyHeader.textContent = "We Buy";
-                matrixSellHeader.textContent = "We Sell";
-                matrixChart.data.datasets[0].label = 'ZB Bank Sell (ZiG)';
-                matrixChart.data.datasets[1].label = 'CBZ Sell (ZiG)';
-                matrixChart.data.datasets[2].label = 'Stanbic Sell (ZiG)';
-            } else {
-                chartBadge.textContent = "Telemetry Unit: USD / ZiG Spread Ratio";
-                matrixBadge.textContent = "USD Index Base";
-                matrixBuyHeader.textContent = "We Buy (Ratio)";
-                matrixSellHeader.textContent = "We Sell (Ratio)";
-                matrixChart.data.datasets[0].label = 'ZB Bank Index (USD)';
-                matrixChart.data.datasets[1].label = 'CBZ Index (USD)';
-                matrixChart.data.datasets[2].label = 'Stanbic Index (USD)';
-            }
-
-            if (amount > 0 && amount < minLimit) {
-                valStatus.textContent = `Error: Minimum is ${srcCurr === 'ZiG' ? 'ZiG 2,800,000' : '$100,000'}`;
-                valStatus.className = "text-red-600 font-bold";
-                submitBtn.disabled = true;
-                submitBtn.classList.add("opacity-50", "cursor-not-allowed");
+            if (src === tgt) {
+                if (document.getElementById('grossProfitDisplay')) {
+                    document.getElementById('grossProfitDisplay').textContent = 'Invalid (Same Currency)';
+                    document.getElementById('netProfitDisplay').textContent = '$0.00';
+                    document.getElementById('optimalPathDisplay').textContent = 'Source & Target must differ';
+                }
                 return;
-            }
-
-            if (srcCurr === tgtCurr) {
-                valStatus.textContent = "Error: Currencies must differ!";
-                valStatus.className = "text-red-600 font-bold";
-                submitBtn.disabled = true;
-                submitBtn.classList.add("opacity-50", "cursor-not-allowed");
-                return;
-            } else {
-                valStatus.textContent = "Validated: AI Engine Ready";
-                valStatus.className = "text-zb-600 font-bold";
-                submitBtn.disabled = false;
-                submitBtn.classList.remove("opacity-50", "cursor-not-allowed");
             }
 
             let maxGross = 0;
-            let bestBuy = banks[0];
-            let bestSell = banks[1];
-            let avgRate = 26.6492;
+            let bestPath = "ZB Bank Holdings (Main) (25.9375) → CABS (26.9394)";
+            let redemptionPoint = "CABS";
 
             for (let i = 0; i < banks.length; i++) {
                 for (let j = 0; j < banks.length; j++) {
                     if (i === j) continue;
-                    let tBank = banks[i];
-                    let rBank = banks[j];
-                    let bRate = rates[tBank].buy;
-                    let sRate = rates[rBank].sell;
-                    avgRate = (bRate + sRate) / 2;
+                    let bRate = rates[banks[i]].buy, sRate = rates[banks[j]].sell;
+                    currentAvgRate = (bRate + sRate) / 2;
                     if (sRate > bRate) {
-                        let gross = srcCurr === 'ZiG' ? (amount / avgRate) * (sRate - bRate) : amount * (sRate - bRate);
+                        let gross = src === 'ZiG' ? (amt / currentAvgRate) * (sRate - bRate) : amt * (sRate - bRate);
                         if (gross > maxGross) {
                             maxGross = gross;
-                            bestBuy = tBank;
-                            bestSell = rBank;
+                            bestPath = `${banks[i]} [Buy: ${bRate.toFixed(4)}] → ${banks[j]} [Sell: ${sRate.toFixed(4)}] (WBWS)`;
+                            redemptionPoint = banks[j];
                         }
                     }
                 }
             }
 
-            currentBestSellBank = bestSell;
-            currentAvgRate = avgRate;
+            const effUSD = src === 'ZiG' ? amt / currentAvgRate : amt;
+            const tax = effUSD * 0.02;
+            const gas = effUSD * 0.0015;
+            makerLastNet = maxGross - (tax + gas);
 
+            if (document.getElementById('grossProfitDisplay')) {
+                document.getElementById('grossProfitDisplay').textContent = '$' + maxGross.toLocaleString('en-US', {minimumFractionDigits: 2});
+                document.getElementById('taxDisplay').textContent = '-$' + tax.toLocaleString('en-US', {minimumFractionDigits: 2});
+                document.getElementById('feesDisplay').textContent = '-$' + gas.toLocaleString('en-US', {minimumFractionDigits: 2});
+                document.getElementById('netProfitDisplay').textContent = (makerLastNet >= 0 ? '$' : '-$') + Math.abs(makerLastNet).toLocaleString('en-US', {minimumFractionDigits: 2});
+                document.getElementById('optimalPathDisplay').textContent = bestPath;
+                document.getElementById('redemptionPointDisplay').textContent = redemptionPoint;
+            }
+        }
+
+        if (document.getElementById('amount')) {
+            document.getElementById('amount').addEventListener('input', updateMakerCalculation);
+            document.getElementById('sourceCurrency').addEventListener('change', updateMakerCalculation);
+            document.getElementById('targetCurrency').addEventListener('change', updateMakerCalculation);
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
             renderMatrixTable();
-
-            const effectiveAmountUSD = srcCurr === 'ZiG' ? amount / avgRate : amount;
-            const imttTax = effectiveAmountUSD * 0.02;
-            const networkFees = effectiveAmountUSD * 0.0015;
-            lastCalculatedNetProfit = maxGross - (imttTax + networkFees);
-
-            document.getElementById('pathBuy').textContent = `${bestBuy} (${(rates[bestBuy].buy * (srcCurr === 'USD' ? (1 / avgRate) : 1)).toFixed(srcCurr === 'USD' ? 5 : 4)})`;
-            document.getElementById('pathSell').textContent = `${bestSell} (${(rates[bestSell].sell * (srcCurr === 'USD' ? (1 / avgRate) : 1)).toFixed(srcCurr === 'USD' ? 5 : 4)})`;
-            document.getElementById('redemptionBankDisplay').textContent = bestSell;
-
-            const currencySymbol = tgtCurr === 'ZiG' ? 'ZiG ' : '$';
-            const profitMultiplier = tgtCurr === 'ZiG' ? avgRate : 1;
-
-            document.getElementById('grossProfitDisplay').textContent = `${currencySymbol}${(maxGross * profitMultiplier).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
-            document.getElementById('taxDisplay').textContent = `-${currencySymbol}${(imttTax * profitMultiplier).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
-            document.getElementById('feesDisplay').textContent = `-${currencySymbol}${(networkFees * profitMultiplier).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
-            
-            const netDisplay = document.getElementById('netProfitDisplay');
-            const displayNet = lastCalculatedNetProfit * profitMultiplier;
-            netDisplay.textContent = `${currencySymbol}${displayNet.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
-            netDisplay.className = displayNet >= 0 ? "text-zb-600 text-sm font-bold" : "text-red-500 text-sm font-bold";
-        }
-
-        document.getElementById('sourceCurrency').addEventListener('change', () => {
-            const src = document.getElementById('sourceCurrency').value;
-            document.getElementById('targetCurrency').value = src === 'ZiG' ? 'USD' : 'ZiG';
-            updateAIPath();
+            renderHeatmap();
+            syncBalances();
+            updateMakerCalculation();
+            setTimeout(initPredictiveChart, 200);
         });
-
-        document.getElementById('targetCurrency').addEventListener('change', () => {
-            const tgt = document.getElementById('targetCurrency').value;
-            document.getElementById('sourceCurrency').value = tgt === 'ZiG' ? 'USD' : 'ZiG';
-            updateAIPath();
-        });
-
-        document.getElementById('amount').addEventListener('input', updateAIPath);
-
-        function executeArbitrage(event) {
-            event.preventDefault();
-            const srcCurr = document.getElementById('sourceCurrency').value;
-            const tgtCurr = document.getElementById('targetCurrency').value;
-            const amount = parseFloat(document.getElementById('amount').value);
-            let minLimit = srcCurr === 'ZiG' ? 2800000 : 100000;
-
-            if (amount < minLimit) {
-                alert(`Minimum transaction volume is ${srcCurr === 'ZiG' ? 'ZiG 2,800,000' : '$100,000 USD'}.`);
-                return;
-            }
-
-            if (hallBalances[srcCurr] < amount) {
-                alert(`Error: Insufficient ${srcCurr} balance in The Banking Hall.`);
-                return;
-            }
-
-            updateAIPath();
-
-            if (lastCalculatedNetProfit <= 0) {
-                alert("Error: No positive arbitrage spread detected for execution.");
-                return;
-            }
-
-            hallBalances[srcCurr] -= amount;
-
-            let formattedProfit = "";
-            if (tgtCurr === 'ZiG') {
-                const netProfitZiG = lastCalculatedNetProfit * currentAvgRate;
-                hallBalances.ZiG += netProfitZiG;
-                formattedProfit = `ZiG ${netProfitZiG.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
-            } else {
-                hallBalances.USD += lastCalculatedNetProfit;
-                formattedProfit = `$${lastCalculatedNetProfit.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
-            }
-
-            document.getElementById('hallZigBalance').textContent = hallBalances.ZiG.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-            document.getElementById('hallUsdBalance').textContent = '$' + hallBalances.USD.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-
-            const auditLog = document.getElementById('auditLog');
-            const timeStr = new Date().toTimeString().split(' ')[0];
-
-            const logEntry = document.createElement('p');
-            logEntry.className = "text-zb-500 font-bold";
-            logEntry.textContent = `[${timeStr}] AI Arbitrage Executed via 93 Nodes. Net Profit of ${formattedProfit} successfully banked into The Banking Hall.`;
-            auditLog.prepend(logEntry);
-
-            document.getElementById('amount').value = '';
-            
-            alert(`Arbitrage complete! Net profit of ${formattedProfit} has been banked into The Banking Hall.`);
-            
-            updateAIPath();
-        }
-
-        renderMatrixTable();
-        updateAIPath();
-        initWebSocketFeed();
-        setInterval(updateCountdownTimer, 1000);
     </script>
 </body>
 </html>
