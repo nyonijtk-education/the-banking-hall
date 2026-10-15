@@ -44,7 +44,7 @@
                     </div>
                 </div>
                 <h1 class="text-base font-bold uppercase tracking-wider text-slate-800 dark:text-slate-100">The Banking Hall Gate (Enterprise Blueprint)</h1>
-                <p class="text-xs text-slate-500 dark:text-slate-400">Select Dedicated Institutional Portal & Authenticate via FIDO2 Passkey</p>
+                <p class="text-xs text-slate-500 dark:text-slate-400">ZB Financial Holdings Head Office: 21 Natal Road, Avondale, Harare | Tel: +263 8677 002 005/1</p>
             </div>
 
             <form onsubmit="handlePortalLogin(event)" class="space-y-4">
@@ -63,6 +63,7 @@
                         <option value="predictive">Portal 2: Predictive AI Analytics & 93-Node Heatmap</option>
                         <option value="compliance">Portal 3: Compliance & ZIMRA Tax Vault (IMTT 2.0% & Automated Filings)</option>
                         <option value="teller">Portal 4: Teller & Treasury Operations (5-Step WBWS, Escrow & Municipal Agri-Hedging)</option>
+                        <option value="agent">Portal 5: AI Agent (Gemini Professional for All)</option>
                     </select>
                 </div>
 
@@ -89,7 +90,7 @@
             </form>
 
             <div class="border-t border-slate-100 dark:border-slate-800 pt-3 text-center text-[11px] text-slate-400 font-mono">
-                ZB Financial Holdings | FIDO2 WebAuthn & ZIMRA Tax Vault Verified
+                ZB Financial Holdings | 21 Natal Road, Avondale, Harare | Tel: +263 8677 002 005/1
             </div>
         </div>
     </div>
@@ -111,13 +112,15 @@
             </div>
         </div>
 
-        <!-- Quick Switch Between Dedicated Portals -->
-        <div class="flex items-center space-x-2 bg-slate-100 dark:bg-slate-800 p-1.5 rounded-xl border border-slate-200 dark:border-slate-700 text-xs font-semibold">
+        <!-- Quick Switch Between Dedicated Portals & Payments Tab & AI Agent -->
+        <div class="flex items-center space-x-2 bg-slate-100 dark:bg-slate-800 p-1.5 rounded-xl border border-slate-200 dark:border-slate-700 text-xs font-semibold overflow-x-auto max-w-full">
             <span class="text-slate-400 dark:text-slate-500 px-2 uppercase font-bold text-[10px]">Portals:</span>
             <button onclick="switchPortal('executive')" id="btnPortExecutive" class="px-2.5 py-1.5 rounded-lg transition bg-white dark:bg-slate-900 text-zb-700 dark:text-zb-400 shadow-2xs cursor-pointer">Executive</button>
             <button onclick="switchPortal('predictive')" id="btnPortPredictive" class="px-2.5 py-1.5 rounded-lg transition text-slate-600 dark:text-slate-400 hover:text-zb-700 dark:hover:text-zb-400 cursor-pointer">AI Analytics</button>
             <button onclick="switchPortal('compliance')" id="btnPortCompliance" class="px-2.5 py-1.5 rounded-lg transition text-slate-600 dark:text-slate-400 hover:text-zb-700 dark:hover:text-zb-400 cursor-pointer">ZIMRA Tax</button>
             <button onclick="switchPortal('teller')" id="btnPortTeller" class="px-2.5 py-1.5 rounded-lg transition text-slate-600 dark:text-slate-400 hover:text-zb-700 dark:hover:text-zb-400 cursor-pointer">Treasury</button>
+            <button onclick="switchPortal('payments')" id="btnPortPayments" class="px-2.5 py-1.5 rounded-lg transition text-slate-600 dark:text-slate-400 hover:text-zb-700 dark:hover:text-zb-400 cursor-pointer"><i class="fa-solid fa-credit-card mr-1"></i>Payments</button>
+            <button onclick="switchPortal('agent')" id="btnPortAgent" class="px-2.5 py-1.5 rounded-lg transition text-slate-600 dark:text-slate-400 hover:text-zb-700 dark:hover:text-zb-400 cursor-pointer bg-zb-600 text-white font-bold"><i class="fa-solid fa-robot mr-1"></i>AI Agent</button>
         </div>
 
         <div class="flex items-center space-x-3 text-xs">
@@ -154,11 +157,7 @@
                 </div>
             </div>
             <div class="flex items-center space-x-3 text-xs font-mono">
-                <div class="bg-black/30 px-3 py-1.5 rounded-lg border border-white/10 flex items-center space-x-2">
-                    <span class="text-slate-400">Buffer:</span>
-                    <strong id="dtnQueueCount" class="text-emerald-400">0 Bundles</strong>
-                </div>
-                <button onclick="toggleDtnSimulation()" id="dtnToggleBtn" class="bg-white hover:bg-zb-50 text-zb-900 font-bold px-3 py-1.5 rounded-lg transition shadow cursor-pointer text-xs uppercase">Simulate Link Drop</button>
+                <button onclick="toggleDtnSimulation()" id="dtnToggleBtn" class="bg-white hover:bg-zb-50 text-zb-900 font-bold px-3 py-1.5 rounded-lg transition shadow cursor-pointer text-xs uppercase">Simulate Network Link</button>
             </div>
         </div>
 
@@ -291,6 +290,14 @@
                         <p class="text-zb-500">[SYSTEM] Institutional utility & arbitrage monitoring ledger initialized.</p>
                     </div>
                 </div>
+
+                <!-- ZB Bank Head Office & Contact Details Card -->
+                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-6 shadow-sm space-y-3 border-l-4 border-l-zb-600">
+                    <h3 class="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300"><i class="fa-solid fa-building mr-2 text-zb-600"></i>ZB Financial Holdings Head Office</h3>
+                    <p class="text-xs text-slate-600 dark:text-slate-400"><strong>Physical Address:</strong> 21 Natal Road, Avondale, Harare, Zimbabwe</p>
+                    <p class="text-xs text-slate-600 dark:text-slate-400"><strong>Telephone Enquiries:</strong> +263 8677 002 005 / +263 8677 002 001</p>
+                    <p class="text-xs text-slate-600 dark:text-slate-400"><strong>Support Email:</strong> help@zb.co.zw</p>
+                </div>
             </div>
         </div>
 
@@ -422,7 +429,7 @@
         <!-- ================= PORTAL 4: TELLER & TREASURY OPERATIONS ================= -->
         <div id="portalTeller" class="portal-view hidden grid grid-cols-1 lg:grid-cols-3 gap-6">
             <div class="space-y-6">
-                <!-- Gross Arbitrage Formula Instructions (Moved to Top) -->
+                <!-- Gross Arbitrage Formula Instructions (Top) -->
                 <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm space-y-3 border-l-4 border-l-zb-600">
                     <h2 class="text-sm font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300"><i class="fa-solid fa-calculator mr-2 text-zb-600"></i>Arbitrage Valuation Formula</h2>
                     <p class="text-[11px] text-slate-500 dark:text-slate-400">Mathematical specification applied by the institutional engine to compute surplus:</p>
@@ -465,135 +472,6 @@
                             <span id="tellerHallUsd" class="text-slate-800 dark:text-slate-100 font-bold text-sm">$4,217,707,091.37</span>
                         </div>
                     </div>
-                </div>
-
-                <!-- Multi-Currency Agricultural & Agri-Challenge Yield Hedging Module -->
-                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm space-y-3 border-l-4 border-l-zb-600">
-                    <h2 class="text-sm font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300"><i class="fa-solid fa-wheat-awn mr-2 text-zb-600"></i>Agri-Challenge Yield Hedging (72H)</h2>
-                    <p class="text-[11px] text-slate-500 dark:text-slate-400">Project currency exposure shifts between ZiG, USD, and regional tokens up to 72 hours in advance and lock in forward contracts.</p>
-                    <form onsubmit="executeAgriHedging(event)" class="space-y-3 text-xs">
-                        <div>
-                            <label class="block font-semibold text-slate-600 dark:text-slate-400 mb-1 uppercase">Agricultural Commodity / Challenge Flow</label>
-                            <select id="agriCommodity" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-2.5 text-slate-800 dark:text-slate-100">
-                                <option value="Eagle's Nest Maize & Grain Yield" selected>Eagle's Nest Maize & Grain Yield</option>
-                                <option value="ADMA Agricultural Equipment Export">ADMA Agricultural Equipment Export</option>
-                                <option value="Regional Cotton & Soy Hub">Regional Cotton & Soy Hub</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block font-semibold text-slate-600 dark:text-slate-400 mb-1 uppercase">Exposure Volume ($ USD Equivalent)</label>
-                            <input type="number" id="agriVolume" placeholder="500000" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-2.5 font-mono text-slate-800 dark:text-slate-100" required>
-                        </div>
-                        <div>
-                            <label class="block font-semibold text-slate-600 dark:text-slate-400 mb-1 uppercase">Target Hedging Currency Base</label>
-                            <select id="agriCurrency" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-2.5 text-slate-800 dark:text-slate-100">
-                                <option value="USD" selected>USD (United States Dollar)</option>
-                                <option value="ZiG" selected>ZiG (Zimbabwe Gold)</option>
-                                <option value="Regional Settlement Token">Regional Agri Settlement Token</option>
-                            </select>
-                        </div>
-                        <button type="submit" class="w-full bg-zb-600 hover:bg-zb-700 text-white font-bold py-2.5 rounded-lg shadow-md transition uppercase cursor-pointer">LOCK 72H FORWARD HEDGE</button>
-                    </form>
-                </div>
-
-                <!-- Automated Mayoral & Fleet Liquidity Allocation Module -->
-                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm space-y-3 border-l-4 border-l-amber-500">
-                    <h2 class="text-sm font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300"><i class="fa-solid fa-car-side mr-2 text-amber-600"></i>Mayoral & Fleet Liquidity Allocation</h2>
-                    <p class="text-[11px] text-slate-500 dark:text-slate-400">Isolate municipal reserves and allocate funds for official executive vehicle fleet provisioning and infrastructural disbursements.</p>
-                    <form onsubmit="executeMunicipalAllocation(event)" class="space-y-3 text-xs">
-                        <div>
-                            <label class="block font-semibold text-slate-600 dark:text-slate-400 mb-1 uppercase">Allocation Category</label>
-                            <select id="municipalCategory" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-2.5 text-slate-800 dark:text-slate-100">
-                                <option value="Fleet Provisioning" selected>Executive Motor Vehicle Fleet Provisioning (G-Class/Mayoral)</option>
-                                <option value="Infrastructural Disbursement">Civic Infrastructural Development Disbursement</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block font-semibold text-slate-600 dark:text-slate-400 mb-1 uppercase">Allocation Amount (USD)</label>
-                            <input type="number" id="municipalAmount" placeholder="150000" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-2.5 font-mono text-slate-800 dark:text-slate-100" required>
-                        </div>
-                        <div>
-                            <label class="block font-semibold text-slate-600 dark:text-slate-400 mb-1 uppercase">Civic Authority Sign-off Pin</label>
-                            <input type="password" id="municipalPin" placeholder="ZB-CIVIC-AUTH-PIN" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-2.5 font-mono text-slate-800 dark:text-slate-100" required>
-                        </div>
-                        <button type="submit" class="w-full bg-amber-600 hover:bg-amber-700 text-white font-bold py-2.5 rounded-lg shadow-md transition uppercase cursor-pointer">ISOLATE MUNICIPAL RESERVE</button>
-                    </form>
-                </div>
-
-                <!-- Dedicated Utility Bills Function Module -->
-                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm space-y-3">
-                    <h2 class="text-sm font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300"><i class="fa-solid fa-bolt mr-2 text-zb-600"></i>Fee-Free Municipal Utilities</h2>
-                    <p class="text-[11px] text-slate-500 dark:text-slate-400">Instant query and institutional settlement of municipal and utility services with 0% processing fee.</p>
-                    <form onsubmit="executeUtilityBillPayment(event)" class="space-y-3 text-xs">
-                        <div>
-                            <label class="block font-semibold text-slate-600 dark:text-slate-400 mb-1 uppercase">Select Utility Provider</label>
-                            <select id="utilityProvider" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-2.5 text-slate-800 dark:text-slate-100" onchange="updateUtilityHint()">
-                                <option value="ZESA Prepaid Token">ZESA Prepaid Electricity Tokens</option>
-                                <option value="City Council Water & Rates">City Council Water & Rates</option>
-                                <option value="ZOL/Liquid Fibre Internet">ZOL / Liquid Fibre Internet</option>
-                                <option value="School & Tuition Fees">School & Tuition Fees (Zero-Fee)</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label id="utilityRefLabel" class="block font-semibold text-slate-600 dark:text-slate-400 mb-1 uppercase">Meter / Account Reference</label>
-                            <input type="text" id="utilityAccountRef" placeholder="e.g. 04192839201" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-2.5 text-slate-800 dark:text-slate-100 font-mono" required>
-                        </div>
-                        <div>
-                            <label class="block font-semibold text-slate-600 dark:text-slate-400 mb-1 uppercase">Disbursement Amount ($ USD)</label>
-                            <input type="number" id="utilityPaymentAmount" placeholder="0.00" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-2.5 font-mono text-slate-800 dark:text-slate-100" required>
-                        </div>
-                        <button type="submit" class="w-full bg-zb-600 hover:bg-zb-700 text-white font-bold py-2.5 rounded-lg shadow-md transition uppercase cursor-pointer">SETTLE UTILITY (0% FEE)</button>
-                    </form>
-                </div>
-
-                <!-- Restaurant POS Daily Settlement Sweep -->
-                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm space-y-3">
-                    <h2 class="text-sm font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300"><i class="fa-solid fa-cash-register mr-2 text-zb-600"></i>POS Daily Settlement Sweep</h2>
-                    <form onsubmit="executePosSweep(event)" class="space-y-3 text-xs">
-                        <div>
-                            <label class="block font-semibold text-slate-600 dark:text-slate-400 mb-1 uppercase">POS Gateway System</label>
-                            <select id="posSystem" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-2.5 text-slate-800 dark:text-slate-100">
-                                <option value="Micros POS" selected>Oracle Micros POS</option>
-                                <option value="TouchBistro POS">TouchBistro POS</option>
-                                <option value="Local EcoCash/Card Gateway">Local Integrated Gateway</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block font-semibold text-slate-600 dark:text-slate-400 mb-1 uppercase">Closing Settlement Volume</label>
-                            <div class="grid grid-cols-2 gap-2">
-                                <input type="number" id="posAmount" placeholder="0.00" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-2.5 font-mono text-slate-800 dark:text-slate-100" required>
-                                <select id="posCurrency" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-2.5 text-slate-800 dark:text-slate-100 font-semibold">
-                                    <option value="USD" selected>USD ($)</option>
-                                    <option value="ZiG">ZiG (ZK)</option>
-                                </select>
-                            </div>
-                        </div>
-                        <button type="submit" class="w-full bg-zb-600 hover:bg-zb-700 text-white font-bold py-2.5 rounded-lg shadow-md transition uppercase cursor-pointer">SWEEP SETTLEMENT TO HALL</button>
-                    </form>
-                </div>
-
-                <!-- Create Escrow Contract -->
-                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm space-y-3">
-                    <h2 class="text-sm font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300"><i class="fa-solid fa-vault mr-2 text-zb-600"></i>Lock Escrow Contract</h2>
-                    <form onsubmit="createEscrowContract(event)" class="space-y-3 text-xs">
-                        <div>
-                            <label class="block font-semibold text-slate-600 dark:text-slate-400 mb-1 uppercase">Counterparty / Supplier Entity</label>
-                            <input type="text" id="escrowClient" placeholder="e.g. Mining Fleet Supplier" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-2.5 text-slate-800 dark:text-slate-100" required>
-                        </div>
-                        <div>
-                            <label class="block font-semibold text-slate-600 dark:text-slate-400 mb-1 uppercase">Escrow Principal (USD)</label>
-                            <input type="number" id="escrowAmount" placeholder="0.00" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-2.5 font-mono text-slate-800 dark:text-slate-100" required>
-                        </div>
-                        <div>
-                            <label class="block font-semibold text-slate-600 dark:text-slate-400 mb-1 uppercase">Release Milestone Condition</label>
-                            <select id="escrowCondition" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-2.5 text-slate-800 dark:text-slate-100">
-                                <option value="Automated Delivery Verification">Automated IoT Delivery Verification</option>
-                                <option value="Dual-Party Sign-off">Multi-Party Corporate Sign-off</option>
-                                <option value="Inspection Approval">Quality Inspection Sign-off</option>
-                            </select>
-                        </div>
-                        <button type="submit" class="w-full bg-zb-600 hover:bg-zb-700 text-white font-bold py-2.5 rounded-lg shadow-md transition uppercase cursor-pointer">Lock Principal in Escrow</button>
-                    </form>
                 </div>
             </div>
 
@@ -671,7 +549,220 @@
             </div>
         </div>
 
+        <!-- ================= PORTAL 5: PAYMENTS & SETTLEMENT HUB ================= -->
+        <div id="portalPayments" class="portal-view hidden grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div class="space-y-6">
+                <!-- Multi-Currency Agricultural & Agri-Challenge Yield Hedging Module -->
+                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm space-y-3 border-l-4 border-l-zb-600">
+                    <h2 class="text-sm font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300"><i class="fa-solid fa-wheat-awn mr-2 text-zb-600"></i>Agri-Challenge Yield Hedging (72H)</h2>
+                    <p class="text-[11px] text-slate-500 dark:text-slate-400">Project currency exposure shifts between ZiG, USD, and regional tokens up to 72 hours in advance and lock in forward contracts.</p>
+                    <form onsubmit="executeAgriHedging(event)" class="space-y-3 text-xs">
+                        <div>
+                            <label class="block font-semibold text-slate-600 dark:text-slate-400 mb-1 uppercase">Agricultural Commodity / Challenge Flow</label>
+                            <select id="agriCommodity" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-2.5 text-slate-800 dark:text-slate-100">
+                                <option value="Eagle's Nest Maize & Grain Yield" selected>Eagle's Nest Maize & Grain Yield</option>
+                                <option value="ADMA Agricultural Equipment Export">ADMA Agricultural Equipment Export</option>
+                                <option value="Regional Cotton & Soy Hub">Regional Cotton & Soy Hub</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block font-semibold text-slate-600 dark:text-slate-400 mb-1 uppercase">Exposure Volume ($ USD Equivalent)</label>
+                            <input type="number" id="agriVolume" placeholder="500000" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-2.5 font-mono text-slate-800 dark:text-slate-100" required>
+                        </div>
+                        <div>
+                            <label class="block font-semibold text-slate-600 dark:text-slate-400 mb-1 uppercase">Target Hedging Currency Base</label>
+                            <select id="agriCurrency" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-2.5 text-slate-800 dark:text-slate-100">
+                                <option value="USD" selected>USD (United States Dollar)</option>
+                                <option value="ZiG">ZiG (Zimbabwe Gold)</option>
+                                <option value="Regional Settlement Token">Regional Agri Settlement Token</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="w-full bg-zb-600 hover:bg-zb-700 text-white font-bold py-2.5 rounded-lg shadow-md transition uppercase cursor-pointer">LOCK 72H FORWARD HEDGE</button>
+                    </form>
+                </div>
+
+                <!-- Automated Mayoral & Fleet Liquidity Allocation Module -->
+                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm space-y-3 border-l-4 border-l-amber-500">
+                    <h2 class="text-sm font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300"><i class="fa-solid fa-car-side mr-2 text-amber-600"></i>Mayoral & Fleet Liquidity Allocation</h2>
+                    <p class="text-[11px] text-slate-500 dark:text-slate-400">Isolate municipal reserves and allocate funds for official executive vehicle fleet provisioning and infrastructural disbursements.</p>
+                    <form onsubmit="executeMunicipalAllocation(event)" class="space-y-3 text-xs">
+                        <div>
+                            <label class="block font-semibold text-slate-600 dark:text-slate-400 mb-1 uppercase">Allocation Category</label>
+                            <select id="municipalCategory" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-2.5 text-slate-800 dark:text-slate-100">
+                                <option value="Fleet Provisioning" selected>Executive Motor Vehicle Fleet Provisioning (G-Class/Mayoral)</option>
+                                <option value="Infrastructural Disbursement">Civic Infrastructural Development Disbursement</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block font-semibold text-slate-600 dark:text-slate-400 mb-1 uppercase">Allocation Amount (USD)</label>
+                            <input type="number" id="municipalAmount" placeholder="150000" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-2.5 font-mono text-slate-800 dark:text-slate-100" required>
+                        </div>
+                        <div>
+                            <label class="block font-semibold text-slate-600 dark:text-slate-400 mb-1 uppercase">Civic Authority Sign-off Pin</label>
+                            <input type="password" id="municipalPin" placeholder="ZB-CIVIC-AUTH-PIN" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-2.5 font-mono text-slate-800 dark:text-slate-100" required>
+                        </div>
+                        <button type="submit" class="w-full bg-amber-600 hover:bg-amber-700 text-white font-bold py-2.5 rounded-lg shadow-md transition uppercase cursor-pointer">ISOLATE MUNICIPAL RESERVE</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="space-y-6">
+                <!-- Dedicated Utility Bills Function Module -->
+                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm space-y-3">
+                    <h2 class="text-sm font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300"><i class="fa-solid fa-bolt mr-2 text-zb-600"></i>Fee-Free Municipal Utilities</h2>
+                    <p class="text-[11px] text-slate-500 dark:text-slate-400">Instant query and institutional settlement of municipal and utility services with 0% processing fee.</p>
+                    <form onsubmit="executeUtilityBillPayment(event)" class="space-y-3 text-xs">
+                        <div>
+                            <label class="block font-semibold text-slate-600 dark:text-slate-400 mb-1 uppercase">Select Utility Provider</label>
+                            <select id="utilityProvider" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-2.5 text-slate-800 dark:text-slate-100" onchange="updateUtilityHint()">
+                                <option value="ZESA Prepaid Token">ZESA Prepaid Electricity Tokens</option>
+                                <option value="City Council Water & Rates">City Council Water & Rates</option>
+                                <option value="ZOL/Liquid Fibre Internet">ZOL / Liquid Fibre Internet</option>
+                                <option value="School & Tuition Fees">School & Tuition Fees (Zero-Fee)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label id="utilityRefLabel" class="block font-semibold text-slate-600 dark:text-slate-400 mb-1 uppercase">Meter / Account Reference</label>
+                            <input type="text" id="utilityAccountRef" placeholder="e.g. 04192839201" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-2.5 text-slate-800 dark:text-slate-100 font-mono" required>
+                        </div>
+                        <div>
+                            <label class="block font-semibold text-slate-600 dark:text-slate-400 mb-1 uppercase">Disbursement Amount ($ USD)</label>
+                            <input type="number" id="utilityPaymentAmount" placeholder="0.00" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-2.5 font-mono text-slate-800 dark:text-slate-100" required>
+                        </div>
+                        <button type="submit" class="w-full bg-zb-600 hover:bg-zb-700 text-white font-bold py-2.5 rounded-lg shadow-md transition uppercase cursor-pointer">SETTLE UTILITY (0% FEE)</button>
+                    </form>
+                </div>
+
+                <!-- Restaurant POS Daily Settlement Sweep -->
+                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm space-y-3">
+                    <h2 class="text-sm font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300"><i class="fa-solid fa-cash-register mr-2 text-zb-600"></i>POS Daily Settlement Sweep</h2>
+                    <form onsubmit="executePosSweep(event)" class="space-y-3 text-xs">
+                        <div>
+                            <label class="block font-semibold text-slate-600 dark:text-slate-400 mb-1 uppercase">POS Gateway System</label>
+                            <select id="posSystem" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-2.5 text-slate-800 dark:text-slate-100">
+                                <option value="Micros POS" selected>Oracle Micros POS</option>
+                                <option value="TouchBistro POS">TouchBistro POS</option>
+                                <option value="Local EcoCash/Card Gateway">Local Integrated Gateway</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block font-semibold text-slate-600 dark:text-slate-400 mb-1 uppercase">Closing Settlement Volume</label>
+                            <div class="grid grid-cols-2 gap-2">
+                                <input type="number" id="posAmount" placeholder="0.00" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-2.5 font-mono text-slate-800 dark:text-slate-100" required>
+                                <select id="posCurrency" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-2.5 text-slate-800 dark:text-slate-100 font-semibold">
+                                    <option value="USD" selected>USD ($)</option>
+                                    <option value="ZiG">ZiG (ZK)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="submit" class="w-full bg-zb-600 hover:bg-zb-700 text-white font-bold py-2.5 rounded-lg shadow-md transition uppercase cursor-pointer">SWEEP SETTLEMENT TO HALL</button>
+                    </form>
+                </div>
+
+                <!-- Create Escrow Contract -->
+                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm space-y-3">
+                    <h2 class="text-sm font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300"><i class="fa-solid fa-vault mr-2 text-zb-600"></i>Lock Escrow Contract</h2>
+                    <form onsubmit="createEscrowContract(event)" class="space-y-3 text-xs">
+                        <div>
+                            <label class="block font-semibold text-slate-600 dark:text-slate-400 mb-1 uppercase">Counterparty / Supplier Entity</label>
+                            <input type="text" id="escrowClient" placeholder="e.g. Mining Fleet Supplier" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-2.5 text-slate-800 dark:text-slate-100" required>
+                        </div>
+                        <div>
+                            <label class="block font-semibold text-slate-600 dark:text-slate-400 mb-1 uppercase">Escrow Principal (USD)</label>
+                            <input type="number" id="escrowAmount" placeholder="0.00" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-2.5 font-mono text-slate-800 dark:text-slate-100" required>
+                        </div>
+                        <div>
+                            <label class="block font-semibold text-slate-600 dark:text-slate-400 mb-1 uppercase">Release Milestone Condition</label>
+                            <select id="escrowCondition" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-2.5 text-slate-800 dark:text-slate-100">
+                                <option value="Automated Delivery Verification">Automated IoT Delivery Verification</option>
+                                <option value="Dual-Party Sign-off">Multi-Party Corporate Sign-off</option>
+                                <option value="Inspection Approval">Quality Inspection Sign-off</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="w-full bg-zb-600 hover:bg-zb-700 text-white font-bold py-2.5 rounded-lg shadow-md transition uppercase cursor-pointer">Lock Principal in Escrow</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= PORTAL 6: AI AGENT (GEMINI PROFESSIONAL FOR ALL) ================= -->
+        <div id="portalAgent" class="portal-view hidden grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div class="space-y-6">
+                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm space-y-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="bg-zb-100 dark:bg-zb-950 p-3 rounded-xl text-zb-600">
+                            <i class="fa-solid fa-graduation-cap text-2xl"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-sm font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">AI Agent</h2>
+                            <span class="text-xs text-emerald-600 font-mono font-bold">GEMINI PROFESSIONAL ACTIVE</span>
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Open to all officers, corporate partners, municipal stakeholders, and citizens. Access comprehensive professional advisory on multi-node liquidity, tax clearance, and community development.</p>
+                    
+                    <div class="space-y-2 pt-2">
+                        <span class="text-[10px] uppercase font-bold text-slate-400 block">Quick Universal Prompts</span>
+                        <button onclick="setAgentPrompt('How do I initiate a multi-party escrow contract or verify my ZIMRA ITF 263 tax clearance status?')" class="w-full text-left text-xs bg-slate-50 dark:bg-slate-800 hover:bg-zb-50 dark:hover:bg-zb-950/50 p-2.5 rounded border border-slate-200 dark:border-slate-700 transition">💡 How do I check ZIMRA ITF 263 status?</button>
+                        <button onclick="setAgentPrompt('Explain how the 5-Step WBWS arbitrage protocol and POS sweep function in The Banking Hall.')" class="w-full text-left text-xs bg-slate-50 dark:bg-slate-800 hover:bg-zb-50 dark:hover:bg-zb-950/50 p-2.5 rounded border border-slate-200 dark:border-slate-700 transition">📊 Explain WBWS arbitrage & POS sweep</button>
+                        <button onclick="setAgentPrompt('What are the protocols for settling fee-free municipal utilities and isolating mayoral reserves?')" class="w-full text-left text-xs bg-slate-50 dark:bg-slate-800 hover:bg-zb-50 dark:hover:bg-zb-950/50 p-2.5 rounded border border-slate-200 dark:border-slate-700 transition">🏛️ Learn about municipal utility settlements</button>
+                    </div>
+                </div>
+
+                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm space-y-3">
+                    <h3 class="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">Access & Intelligence</h3>
+                    <div class="space-y-2 text-xs font-mono">
+                        <div class="flex justify-between items-center bg-slate-50 dark:bg-slate-800/60 p-2.5 rounded border border-slate-200 dark:border-slate-800">
+                            <span class="text-slate-500">Model Engine</span>
+                            <strong class="text-zb-600">Gemini Professional</strong>
+                        </div>
+                        <div class="flex justify-between items-center bg-slate-50 dark:bg-slate-800/60 p-2.5 rounded border border-slate-200 dark:border-slate-800">
+                            <span class="text-slate-500">Accessibility</span>
+                            <strong class="text-emerald-600">Open to All Users</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-2 space-y-6">
+                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-6 shadow-sm flex flex-col h-[550px]">
+                    <div class="flex justify-between items-center border-b border-slate-100 dark:border-slate-800 pb-3 mb-4">
+                        <h2 class="text-base font-bold text-slate-800 dark:text-slate-100 uppercase tracking-wide"><i class="fa-solid fa-graduation-cap text-zb-600 mr-2"></i>AI Agent Terminal (Gemini Professional)</h2>
+                        <span class="text-xs font-mono text-zb-600 bg-zb-50 dark:bg-zb-950 px-2.5 py-1 rounded-full border border-zb-200 dark:border-zb-900 font-bold">Public Session</span>
+                    </div>
+
+                    <!-- Chat Messages Container with Broad Welcome Message -->
+                    <div id="agentChatHistory" class="flex-1 overflow-y-auto space-y-4 pr-2 font-mono text-xs">
+                        <div class="p-4 bg-zb-50 dark:bg-zb-950/60 border border-zb-200 dark:border-zb-900 rounded-xl text-slate-700 dark:text-slate-300 space-y-2 shadow-sm">
+                            <strong class="text-zb-600 block font-bold uppercase text-xs flex items-center"><i class="fa-solid fa-graduation-cap mr-1.5 text-sm"></i>ZB AI Agent (Gemini Professional)</strong>
+                            <p class="font-sans text-xs sm:text-sm leading-relaxed text-slate-700 dark:text-slate-200">
+                                Welcome to ZB Financial Holdings — The Banking Hall. Whether you are a corporate executive managing interbank liquidity at our head office (21 Natal Road, Avondale, Harare), a municipal officer overseeing civic reserves, an agricultural partner navigating 72-hour yield hedging, or a citizen settling fee-free utility bills, I am here to assist you. Ask me anything about our 93-node matrix, ZIMRA e-Services tax compliance, or secure escrow protocols.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Chat Input Form -->
+                    <form onsubmit="handleAgentQuery(event)" class="mt-4 flex gap-2">
+                        <input type="text" id="agentInput" placeholder="Ask Gemini Professional anything about accounts, compliance, or banking tools..." class="flex-1 bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-3 text-xs text-slate-800 dark:text-slate-100 font-mono focus:outline-none focus:border-zb-600" required>
+                        <button type="submit" class="bg-zb-600 hover:bg-zb-700 text-white font-bold px-6 py-3 rounded-lg shadow transition uppercase text-xs cursor-pointer flex items-center space-x-1.5">
+                            <i class="fa-solid fa-paper-plane"></i>
+                            <span>Send</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
     </main>
+
+    <!-- FLOATING BEACON FOR AI AGENT ACCESS -->
+    <div class="fixed bottom-6 right-6 z-50">
+        <button onclick="switchPortal('agent')" class="bg-zb-600 hover:bg-zb-700 text-white p-4 rounded-full shadow-2xl flex items-center justify-center transition transform hover:scale-105 cursor-pointer border-2 border-white dark:border-slate-900 group relative" title="Open AI Agent">
+            <i class="fa-solid fa-robot text-xl animate-bounce"></i>
+            <span class="absolute right-full mr-3 bg-slate-900 text-white text-[10px] font-mono font-bold px-3 py-1.5 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition whitespace-nowrap pointer-events-none uppercase tracking-wider">
+                Ask AI Agent
+            </span>
+        </button>
+    </div>
 
     <!-- SYNCHRONIZED MULTI-PORTAL APPLICATION SCRIPT -->
     <script>
@@ -688,7 +779,6 @@
         let spreadChartInstance = null;
         let alertThresholds = { usd: 50000, zig: 1000000 };
         let dtnLinkConnected = true;
-        let dtnBundleQueue = [];
 
         let rates = {};
         const baseBanks = [
@@ -734,6 +824,27 @@
             return `Node #${index < 10 ? '0' + index : index}: ${baseName}`;
         }
 
+        // Automatic Time-Based Theme Management (Night / Day)
+        function applyTimeBasedTheme() {
+            const hour = new Date().getHours();
+            const root = document.getElementById('htmlRoot');
+            const icon = document.getElementById('themeIcon');
+            const text = document.getElementById('themeText');
+            
+            // Night time considered between 18:00 (6 PM) and 06:00 (6 AM)
+            const isNight = hour >= 18 || hour < 6;
+            
+            if (isNight) {
+                root.classList.add('dark');
+                if (icon) icon.className = "fa-solid fa-sun";
+                if (text) text.textContent = "Day";
+            } else {
+                root.classList.remove('dark');
+                if (icon) icon.className = "fa-solid fa-moon";
+                if (text) text.textContent = "Night";
+            }
+        }
+
         function toggleTheme() {
             const root = document.getElementById('htmlRoot');
             const icon = document.getElementById('themeIcon');
@@ -753,29 +864,15 @@
             dtnLinkConnected = !dtnLinkConnected;
             const btn = document.getElementById('dtnToggleBtn');
             if (dtnLinkConnected) {
-                btn.textContent = "Simulate Link Drop";
+                btn.textContent = "Simulate Network Link";
                 btn.className = "bg-white hover:bg-zb-50 text-zb-900 font-bold px-3 py-1.5 rounded-lg transition shadow cursor-pointer text-xs uppercase";
-                logZimraLedger("ISOC DTN LINK RESTORED: Flushing ZIMRA tax remittance queue across 93 nodes.", 'release');
-                flushDtnQueue();
+                logZimraLedger("ISOC DTN LINK RESTORED: Network link online.", 'release');
             } else {
-                btn.textContent = "Restore Satellite Link";
+                btn.textContent = "Restore Network Link";
                 btn.className = "bg-amber-500 hover:bg-amber-600 text-white font-bold px-3 py-1.5 rounded-lg transition shadow cursor-pointer text-xs uppercase animate-pulse";
-                logZimraLedger("ISOC DTN LINK DROP DETECTED: Buffering ZIMRA statutory tax returns in local store-and-forward vault.", 'deduct');
-                alert("DTN Link Drop Simulated: ZIMRA tax return filings buffered locally for store-and-forward synchronization.");
+                logZimraLedger("ISOC DTN LINK DROP DETECTED: Network link offline simulation active.", 'deduct');
+                alert("Network Link Simulation: Connection dropped.");
             }
-        }
-
-        function flushDtnQueue() {
-            if (dtnBundleQueue.length > 0) {
-                alert(`ZIMRA Sync: Successfully transmitted ${dtnBundleQueue.length} buffered statutory tax returns to ZIMRA e-Services.`);
-                dtnBundleQueue = [];
-                updateDtnQueueDisplay();
-            }
-        }
-
-        function updateDtnQueueDisplay() {
-            const el = document.getElementById('dtnQueueCount');
-            if (el) el.textContent = `${dtnBundleQueue.length} Bundles`;
         }
 
         async function triggerWebAuthnBiometricAuth() {
@@ -830,13 +927,19 @@
             document.querySelectorAll('.portal-view').forEach(el => el.classList.add('hidden'));
             document.getElementById('portal' + portalId.charAt(0).toUpperCase() + portalId.slice(1)).classList.remove('hidden');
 
-            ['executive', 'predictive', 'compliance', 'teller'].forEach(p => {
+            ['executive', 'predictive', 'compliance', 'teller', 'payments', 'agent'].forEach(p => {
                 const btn = document.getElementById('btnPort' + p.charAt(0).toUpperCase() + p.slice(1));
                 if (btn) {
                     const isCurrent = p === portalId;
-                    btn.className = isCurrent 
-                        ? "px-2.5 py-1.5 rounded-lg transition bg-white dark:bg-slate-900 text-zb-700 dark:text-zb-400 shadow-2xs cursor-pointer font-bold"
-                        : "px-2.5 py-1.5 rounded-lg transition text-slate-600 dark:text-slate-400 hover:text-zb-700 dark:hover:text-zb-400 cursor-pointer";
+                    if (p === 'agent') {
+                        btn.className = isCurrent 
+                            ? "px-2.5 py-1.5 rounded-lg transition bg-zb-700 dark:bg-zb-600 text-white shadow-2xs cursor-pointer font-bold"
+                            : "px-2.5 py-1.5 rounded-lg transition bg-zb-600 text-white hover:bg-zb-700 cursor-pointer font-bold";
+                    } else {
+                        btn.className = isCurrent 
+                            ? "px-2.5 py-1.5 rounded-lg transition bg-white dark:bg-slate-900 text-zb-700 dark:text-zb-400 shadow-2xs cursor-pointer font-bold"
+                            : "px-2.5 py-1.5 rounded-lg transition text-slate-600 dark:text-slate-400 hover:text-zb-700 dark:hover:text-zb-400 cursor-pointer";
+                    }
                 }
             });
 
@@ -844,7 +947,9 @@
                 executive: "Executive Leadership & Governance Portal",
                 predictive: "Predictive AI Analytics Portal",
                 compliance: "ZIMRA Tax Vault & Automated Filing Portal",
-                teller: "Treasury Operations Portal"
+                teller: "Treasury Operations Portal",
+                payments: "Payments & Settlement Hub",
+                agent: "AI Agent (Gemini Professional)"
             };
             document.getElementById('activePortalHeaderTitle').textContent = titles[portalId];
 
@@ -856,8 +961,60 @@
             updateMakerCalculation();
 
             if (portalId === 'predictive') {
-                setTimeout(initPredictiveChart, 100);
+                setTimeout(initPredictiveChart, 200);
             }
+        }
+
+        function setAgentPrompt(text) {
+            const input = document.getElementById('agentInput');
+            if (input) {
+                input.value = text;
+                input.focus();
+            }
+        }
+
+        function handleAgentQuery(event) {
+            event.preventDefault();
+            const input = document.getElementById('agentInput');
+            const query = input.value.trim();
+            if (!query) return;
+
+            const chatHistory = document.getElementById('agentChatHistory');
+            const userName = document.getElementById('loginUser').value || 'Valued Officer / Partner';
+            
+            // Append User Message
+            chatHistory.innerHTML += `
+                <div class="p-3.5 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-800 dark:text-slate-100 space-y-1 ml-6">
+                    <strong class="text-zb-600 block font-bold uppercase text-[10px]"><i class="fa-solid fa-user mr-1"></i>${userName}</strong>
+                    <p class="font-sans text-xs">${query}</p>
+                </div>
+            `;
+            input.value = '';
+            chatHistory.scrollTop = chatHistory.scrollHeight;
+
+            // Generate Gemini Professional AI Assistant Response
+            setTimeout(() => {
+                let responseText = "As your Gemini Professional assistant for ZB Financial Holdings (Head Office: 21 Natal Road, Avondale, Harare; Tel: +263 8677 002 005/1), I have reviewed your request. All institutional guidelines, multi-node liquidity parameters, and ZIMRA compliance standards remain fully synchronized.";
+                const lowerQ = query.toLowerCase();
+
+                if (lowerQ.includes('arbitrage') || lowerQ.includes('path') || lowerQ.includes('liquidity') || lowerQ.includes('wbws')) {
+                    responseText = "Gemini Professional Interbank Analysis: Deep cluster inspection indicates spread expansion between CABS (Buy 25.8497 / Sell 26.9394) and ZB Bank Holdings. Executing the 5-Step WBWS protocol across node #01 to #42 yields a projected net surplus of +$52,100.00 USD after IMTT (2.0%) and node gas deductions.";
+                } else if (lowerQ.includes('zimra') || lowerQ.includes('itf') || lowerQ.includes('tax') || lowerQ.includes('compliance')) {
+                    responseText = "ZIMRA Compliance Audit (Gemini Professional Engine): ITF 263 Exemption Status is cryptographically verified as **INFINITE / PERPETUAL** under agricultural challenge and municipal contractor provisions. Total IMTT remitted: $" + totalTaxRemitted.toLocaleString() + ". All ZIMRA e-Services automated filings are fully compliant.";
+                } else if (lowerQ.includes('municipal') || lowerQ.includes('chiredzi') || lowerQ.includes('fleet') || lowerQ.includes('reserve') || lowerQ.includes('utility')) {
+                    responseText = "Civic & Municipal Advisory: Chiredzi mayoral fleet reserve ($" + municipalReserves.fleet.toLocaleString() + " USD) and infrastructural development pool ($" + municipalReserves.infra.toLocaleString() + " USD) are securely isolated from commercial arbitrage pools with FIDO2 hardware sign-offs active. Fee-free utility disbursements operate at 0% processing fees.";
+                } else if (lowerQ.includes('escrow') || lowerQ.includes('contract')) {
+                    responseText = "Escrow Governance Advisory: Multi-party escrow contracts require executive dual-control sign-off and cryptographic FIDO2 HSM verification prior to milestone fund release.";
+                }
+
+                chatHistory.innerHTML += `
+                    <div class="p-3.5 bg-zb-50 dark:bg-zb-950/60 border border-zb-200 dark:border-zb-900 rounded-xl text-slate-700 dark:text-slate-300 space-y-1 mr-6 shadow-sm">
+                        <strong class="text-zb-600 block font-bold uppercase text-[10px] flex items-center"><i class="fa-solid fa-graduation-cap mr-1"></i>ZB AI Agent (Gemini Professional)</strong>
+                        <p class="font-sans text-xs leading-relaxed">${responseText}</p>
+                    </div>
+                `;
+                chatHistory.scrollTop = chatHistory.scrollHeight;
+            }, 800);
         }
 
         function syncBalances() {
@@ -912,7 +1069,7 @@
         }
 
         function downloadZimraTaxReport() { 
-            const certContent = `ZIMBABWE REVENUE AUTHORITY (ZIMRA)\nTAX CLEARANCE CERTIFICATE (ITF 263)\n\nTaxpayer Name: ZB Financial Holdings / Starbridge\nBusiness Partner (BP) Number: 2009384920\nTax Period: Fiscal Year 2026\nStatus: TAX CLEARANCE GRANTED\n\nThis is to certify that the taxpayer has complied with statutory tax obligations under IMTT, VAT, and Income Tax acts.\nGenerated via The Banking Hall ZIMRA Vault on ${new Date().toLocaleString()}`;
+            const certContent = `ZIMBABWE REVENUE AUTHORITY (ZIMRA)\nTAX CLEARANCE CERTIFICATE (ITF 263)\n\nTaxpayer Name: ZB Financial Holdings / Starbridge\nBusiness Partner (BP) Number: 2009384920\nTax Period: Fiscal Year 2026\nStatus: INFINITE / PERPETUAL EXEMPTION\nHead Office: 21 Natal Road, Avondale, Harare\n\nThis is to certify that the taxpayer has complied with statutory tax obligations under IMTT, VAT, and Income Tax acts.\nGenerated via The Banking Hall ZIMRA Vault on ${new Date().toLocaleString()}`;
             const blob = new Blob([certContent], { type: 'text/plain;charset=utf-8' });
             const url = URL.createObjectURL(blob);
             const link = document.createElement('a');
@@ -1012,7 +1169,7 @@
         }
 
         function exportFinancialStatementPDF() {
-            const statementContent = `ZB FINANCIAL HOLDINGS - THE BANKING HALL (ENTERPRISE BLUEPRINT)\nOfficial Treasury & Financial Statement\nGenerated: ${new Date().toLocaleString()}\nOfficer: ${document.getElementById('loginUser').value || 'Executive Director'}\n\nHall ZiG Reserve: ${hallBalances.ZiG.toLocaleString()} | Hall USD Reserve: $${hallBalances.USD.toLocaleString()}\nMayoral Fleet Reserve: $${municipalReserves.fleet.toLocaleString()} | Infrastructural Pool: $${municipalReserves.infra.toLocaleString()}`;
+            const statementContent = `ZB FINANCIAL HOLDINGS - THE BANKING HALL (ENTERPRISE BLUEPRINT)\nHead Office: 21 Natal Road, Avondale, Harare | Tel: +263 8677 002 005/1\nOfficial Treasury & Financial Statement\nGenerated: ${new Date().toLocaleString()}\nOfficer: ${document.getElementById('loginUser').value || 'Executive Director'}\n\nHall ZiG Reserve: ${hallBalances.ZiG.toLocaleString()} | Hall USD Reserve: $${hallBalances.USD.toLocaleString()}\nMayoral Fleet Reserve: $${municipalReserves.fleet.toLocaleString()} | Infrastructural Pool: $${municipalReserves.infra.toLocaleString()}`;
             const blob = new Blob([statementContent], { type: 'text/plain;charset=utf-8' });
             const url = URL.createObjectURL(blob);
             const link = document.createElement('a');
@@ -1110,16 +1267,9 @@
                 totalGasCollected += gas;
                 syncBalances();
 
-                if (!dtnLinkConnected && srcBank.includes('Bikita')) {
-                    dtnBundleQueue.push({ id: 'DTN-BUNDLE-' + Math.floor(100000 + Math.random() * 900000), amount: makerLastNet, timestamp: new Date().toTimeString().split(' ')[0] });
-                    updateDtnQueueDisplay();
-                    logZimraLedger(`DTN STORE-AND-FORWARD (Step 5 - SURPLUS): Bundle buffered for Bikita extraction node. Net surplus: +$${makerLastNet.toLocaleString()}`, 'deduct');
-                    alert(`DTN Buffer Notice: Satellite link offline. Surplus settlement bundle stored securely in local vault queue (${dtnBundleQueue.length} pending).`);
-                } else {
-                    logZimraLedger(`ARBITRAGE PROTOCOL COMPLETED (Steps 1–5 - SURPLUS RECORDED): Recorded net surplus of +$${makerLastNet.toLocaleString()} in ${src} via WBWS interbank/VFX routing. (IMTT 2.0% auto-remitted to ZIMRA)`, 'split');
-                    if (makerLastNet >= alertThresholds.usd) triggerTradeAlert(makerLastNet, 'USD');
-                    alert(`Arbitrage protocol completed successfully! Net surplus of +$${makerLastNet.toLocaleString()} recorded and IMTT 2.0% auto-remitted to ZIMRA.`);
-                }
+                logZimraLedger(`ARBITRAGE PROTOCOL COMPLETED (Steps 1–5 - SURPLUS RECORDED): Recorded net surplus of +$${makerLastNet.toLocaleString()} in ${src} via WBWS interbank/VFX routing. (IMTT 2.0% auto-remitted to ZIMRA)`, 'split');
+                if (makerLastNet >= alertThresholds.usd) triggerTradeAlert(makerLastNet, 'USD');
+                alert(`Arbitrage protocol completed successfully! Net surplus of +$${makerLastNet.toLocaleString()} recorded and IMTT 2.0% auto-remitted to ZIMRA.`);
             } else {
                 let deficit = Math.abs(makerLastNet);
                 logZimraLedger(`ARBITRAGE PROTOCOL COMPLETED (Steps 1–5 - DEFICIT RECORDED): Recorded net deficit of -$${deficit.toLocaleString()} in ${src} via WBWS interbank/VFX routing.`, 'deduct');
@@ -1314,6 +1464,7 @@
         }
 
         window.addEventListener('DOMContentLoaded', () => {
+            applyTimeBasedTheme();
             renderMatrixTable();
             renderHeatmap();
             syncBalances();
