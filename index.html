@@ -212,15 +212,15 @@
             <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm">
                 <div class="flex justify-between items-center mb-4">
                     <h2 class="text-sm font-bold uppercase tracking-wider text-slate-700"><i class="fa-solid fa-chart-line mr-2 text-zb-600"></i>Live Interbank Matrix</h2>
-                    <span class="text-[10px] text-zb-600 bg-zb-50 px-2 py-0.5 rounded border border-zb-100 animate-pulse font-mono">WSS Active</span>
+                    <span id="matrixCurrencyBadge" class="text-[10px] text-zb-600 bg-zb-50 px-2 py-0.5 rounded border border-zb-100 font-mono font-bold">ZiG Base</span>
                 </div>
                 <div class="overflow-x-auto max-h-64">
                     <table class="w-full text-xs text-left">
                         <thead class="text-slate-400 border-b border-slate-100 uppercase sticky top-0 bg-white">
                             <tr>
                                 <th class="pb-2 font-semibold">Bank</th>
-                                <th class="pb-2 font-semibold">We Buy</th>
-                                <th class="pb-2 font-semibold">We Sell</th>
+                                <th id="matrixBuyHeader" class="pb-2 font-semibold">We Buy</th>
+                                <th id="matrixSellHeader" class="pb-2 font-semibold">We Sell</th>
                             </tr>
                         </thead>
                         <tbody id="matrixTableBody" class="divide-y divide-slate-100 font-mono">
@@ -333,7 +333,10 @@
 
             <!-- Live Matrix Telemetry Chart Container -->
             <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm">
-                <h3 class="text-sm font-bold uppercase tracking-wider text-slate-700 mb-3"><i class="fa-solid fa-chart-area mr-2 text-zb-600"></i>Live WebSocket Rate Feed Telemetry</h3>
+                <div class="flex justify-between items-center mb-3">
+                    <h3 class="text-sm font-bold uppercase tracking-wider text-slate-700"><i class="fa-solid fa-chart-area mr-2 text-zb-600"></i>Live WebSocket Rate Feed Telemetry</h3>
+                    <span id="chartCurrencyBadge" class="text-xs bg-zb-50 border border-zb-200 text-zb-700 px-2.5 py-0.5 rounded-full font-mono font-bold">Telemetry Unit: ZiG / USD</span>
+                </div>
                 <div class="h-64 w-full">
                     <canvas id="matrixChart"></canvas>
                 </div>
@@ -487,9 +490,9 @@
             data: {
                 labels: ['-5m', '-4m', '-3m', '-2m', '-1m', 'Live WSS'],
                 datasets: [
-                    { label: 'ZB Bank Sell', data: [26.5, 26.55, 26.6, 26.62, 26.63, 26.64], borderColor: '#00539f', tension: 0.3, borderWidth: 2 },
-                    { label: 'CBZ Sell', data: [27.0, 27.1, 27.2, 27.15, 27.25, 27.31], borderColor: '#008751', tension: 0.3, borderWidth: 2 },
-                    { label: 'Stanbic Sell', data: [26.7, 26.75, 26.8, 26.78, 26.82, 26.80], borderColor: '#72bf44', tension: 0.3, borderWidth: 2 }
+                    { label: 'ZB Bank Rate', data: [26.5, 26.55, 26.6, 26.62, 26.63, 26.64], borderColor: '#00539f', tension: 0.3, borderWidth: 2 },
+                    { label: 'CBZ Rate', data: [27.0, 27.1, 27.2, 27.15, 27.25, 27.31], borderColor: '#008751', tension: 0.3, borderWidth: 2 },
+                    { label: 'Stanbic Rate', data: [26.7, 26.75, 26.8, 26.78, 26.82, 26.80], borderColor: '#72bf44', tension: 0.3, borderWidth: 2 }
                 ]
             },
             options: {
@@ -506,12 +509,17 @@
         function renderMatrixTable() {
             const tbody = document.getElementById('matrixTableBody');
             tbody.innerHTML = '';
+            const srcCurr = document.getElementById('sourceCurrency').value;
+            const multiplier = srcCurr === 'USD' ? (1 / currentAvgRate) : 1;
+
             for (let bank in rates) {
+                let buyVal = rates[bank].buy * multiplier;
+                let sellVal = rates[bank].sell * multiplier;
                 tbody.innerHTML += `
                     <tr>
                         <td class="py-2.5 text-slate-700 font-sans font-medium">${bank}</td>
-                        <td class="py-2.5 text-zb-600 font-semibold">${rates[bank].buy.toFixed(4)}</td>
-                        <td class="py-2.5 text-slate-600">${rates[bank].sell.toFixed(4)}</td>
+                        <td class="py-2.5 text-zb-600 font-semibold">${buyVal.toFixed(srcCurr === 'USD' ? 5 : 4)}</td>
+                        <td class="py-2.5 text-slate-600">${sellVal.toFixed(srcCurr === 'USD' ? 5 : 4)}</td>
                     </tr>
                 `;
             }
@@ -534,12 +542,15 @@
                 renderMatrixTable();
                 updateAIPath();
 
+                const srcCurr = document.getElementById('sourceCurrency').value;
+                const multiplier = srcCurr === 'USD' ? (1 / currentAvgRate) : 1;
+
                 matrixChart.data.datasets[0].data.shift();
-                matrixChart.data.datasets[0].data.push(rates["ZB Bank"].sell);
+                matrixChart.data.datasets[0].data.push(rates["ZB Bank"].sell * multiplier);
                 matrixChart.data.datasets[1].data.shift();
-                matrixChart.data.datasets[1].data.push(rates.CBZ.sell);
+                matrixChart.data.datasets[1].data.push(rates.CBZ.sell * multiplier);
                 matrixChart.data.datasets[2].data.shift();
-                matrixChart.data.datasets[2].data.push(rates.Stanbic.sell);
+                matrixChart.data.datasets[2].data.push(rates.Stanbic.sell * multiplier);
                 matrixChart.update('none');
             }, 3500);
         }
@@ -555,6 +566,7 @@
         }
 
         let lastCalculatedNetProfit = 0;
+        let currentAvgRate = 26.6492;
 
         function updateAIPath() {
             const srcCurr = document.getElementById('sourceCurrency').value;
@@ -565,6 +577,30 @@
 
             let minLimit = srcCurr === 'ZiG' ? 2800000 : 100000;
             document.getElementById('amountLabel').textContent = `Transaction Volume (Min ${srcCurr === 'ZiG' ? 'ZiG 2,800,000' : '$100,000 USD'})`;
+
+            // Switch telemetry chart and matrix table labels dynamically when source currency switches
+            const chartBadge = document.getElementById('chartCurrencyBadge');
+            const matrixBadge = document.getElementById('matrixCurrencyBadge');
+            const matrixBuyHeader = document.getElementById('matrixBuyHeader');
+            const matrixSellHeader = document.getElementById('matrixSellHeader');
+
+            if (srcCurr === 'ZiG') {
+                chartBadge.textContent = "Telemetry Unit: ZiG / USD Rate";
+                matrixBadge.textContent = "ZiG Base";
+                matrixBuyHeader.textContent = "We Buy";
+                matrixSellHeader.textContent = "We Sell";
+                matrixChart.data.datasets[0].label = 'ZB Bank Sell (ZiG)';
+                matrixChart.data.datasets[1].label = 'CBZ Sell (ZiG)';
+                matrixChart.data.datasets[2].label = 'Stanbic Sell (ZiG)';
+            } else {
+                chartBadge.textContent = "Telemetry Unit: USD / ZiG Spread Ratio";
+                matrixBadge.textContent = "USD Index Base";
+                matrixBuyHeader.textContent = "We Buy (Ratio)";
+                matrixSellHeader.textContent = "We Sell (Ratio)";
+                matrixChart.data.datasets[0].label = 'ZB Bank Index (USD)';
+                matrixChart.data.datasets[1].label = 'CBZ Index (USD)';
+                matrixChart.data.datasets[2].label = 'Stanbic Index (USD)';
+            }
 
             if (amount > 0 && amount < minLimit) {
                 valStatus.textContent = `Error: Minimum is ${srcCurr === 'ZiG' ? 'ZiG 2,800,000' : '$100,000'}`;
@@ -612,32 +648,50 @@
             }
 
             currentBestSellBank = bestSell;
+            currentAvgRate = avgRate;
+
+            renderMatrixTable();
 
             const effectiveAmountUSD = srcCurr === 'ZiG' ? amount / avgRate : amount;
             const imttTax = effectiveAmountUSD * 0.02;
             const networkFees = effectiveAmountUSD * 0.0015;
             lastCalculatedNetProfit = maxGross - (imttTax + networkFees);
 
-            document.getElementById('pathBuy').textContent = `${bestBuy} (${rates[bestBuy].buy.toFixed(4)})`;
-            document.getElementById('pathSell').textContent = `${bestSell} (${rates[bestSell].sell.toFixed(4)})`;
+            document.getElementById('pathBuy').textContent = `${bestBuy} (${(rates[bestBuy].buy * (srcCurr === 'USD' ? (1 / avgRate) : 1)).toFixed(srcCurr === 'USD' ? 5 : 4)})`;
+            document.getElementById('pathSell').textContent = `${bestSell} (${(rates[bestSell].sell * (srcCurr === 'USD' ? (1 / avgRate) : 1)).toFixed(srcCurr === 'USD' ? 5 : 4)})`;
             document.getElementById('redemptionBankDisplay').textContent = bestSell;
 
-            document.getElementById('grossProfitDisplay').textContent = `$${maxGross.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
-            document.getElementById('taxDisplay').textContent = `-$${imttTax.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
-            document.getElementById('feesDisplay').textContent = `-$${networkFees.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+            const currencySymbol = tgtCurr === 'ZiG' ? 'ZiG ' : '$';
+            const profitMultiplier = tgtCurr === 'ZiG' ? avgRate : 1;
+
+            document.getElementById('grossProfitDisplay').textContent = `${currencySymbol}${(maxGross * profitMultiplier).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+            document.getElementById('taxDisplay').textContent = `-${currencySymbol}${(imttTax * profitMultiplier).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+            document.getElementById('feesDisplay').textContent = `-${currencySymbol}${(networkFees * profitMultiplier).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
             
             const netDisplay = document.getElementById('netProfitDisplay');
-            netDisplay.textContent = `$${lastCalculatedNetProfit.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
-            netDisplay.className = lastCalculatedNetProfit >= 0 ? "text-zb-600 text-sm font-bold" : "text-red-500 text-sm font-bold";
+            const displayNet = lastCalculatedNetProfit * profitMultiplier;
+            netDisplay.textContent = `${currencySymbol}${displayNet.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+            netDisplay.className = displayNet >= 0 ? "text-zb-600 text-sm font-bold" : "text-red-500 text-sm font-bold";
         }
 
-        document.getElementById('sourceCurrency').addEventListener('change', updateAIPath);
-        document.getElementById('targetCurrency').addEventListener('change', updateAIPath);
+        document.getElementById('sourceCurrency').addEventListener('change', () => {
+            const src = document.getElementById('sourceCurrency').value;
+            document.getElementById('targetCurrency').value = src === 'ZiG' ? 'USD' : 'ZiG';
+            updateAIPath();
+        });
+
+        document.getElementById('targetCurrency').addEventListener('change', () => {
+            const tgt = document.getElementById('targetCurrency').value;
+            document.getElementById('sourceCurrency').value = tgt === 'ZiG' ? 'USD' : 'ZiG';
+            updateAIPath();
+        });
+
         document.getElementById('amount').addEventListener('input', updateAIPath);
 
         function executeArbitrage(event) {
             event.preventDefault();
             const srcCurr = document.getElementById('sourceCurrency').value;
+            const tgtCurr = document.getElementById('targetCurrency').value;
             const amount = parseFloat(document.getElementById('amount').value);
             let minLimit = srcCurr === 'ZiG' ? 2800000 : 100000;
 
@@ -651,7 +705,6 @@
                 return;
             }
 
-            // Ensure live net profit is freshly evaluated prior to banking
             updateAIPath();
 
             if (lastCalculatedNetProfit <= 0) {
@@ -660,15 +713,22 @@
             }
 
             hallBalances[srcCurr] -= amount;
-            hallBalances.USD += lastCalculatedNetProfit;
+
+            let formattedProfit = "";
+            if (tgtCurr === 'ZiG') {
+                const netProfitZiG = lastCalculatedNetProfit * currentAvgRate;
+                hallBalances.ZiG += netProfitZiG;
+                formattedProfit = `ZiG ${netProfitZiG.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+            } else {
+                hallBalances.USD += lastCalculatedNetProfit;
+                formattedProfit = `$${lastCalculatedNetProfit.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+            }
 
             document.getElementById('hallZigBalance').textContent = hallBalances.ZiG.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
             document.getElementById('hallUsdBalance').textContent = '$' + hallBalances.USD.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
 
             const auditLog = document.getElementById('auditLog');
             const timeStr = new Date().toTimeString().split(' ')[0];
-
-            const formattedProfit = '$' + lastCalculatedNetProfit.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
 
             const logEntry = document.createElement('p');
             logEntry.className = "text-zb-500 font-bold";
